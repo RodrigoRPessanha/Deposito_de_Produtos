@@ -3,7 +3,7 @@
 ## Descrição do projeto
 Este projeto é um depósito de produtos, desenvolvida com o uso do Spring Boot 3. Ele fornece uma plataforma para gerenciar um depósito de produtos.
 
-## Getting started
+## Começando
 Siga as instruções abaixo para configurar e executar o projeto localmente:
 
 1. Clone o repositório para sua máquina local.
