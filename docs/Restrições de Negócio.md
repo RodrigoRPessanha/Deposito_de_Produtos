@@ -30,8 +30,8 @@
 4. Deverá ser único?
     * id
 5. Padrão (regex)-> um formato específico com CPF, CEP, CNPJ.
-1. CEP = \d{5}-\d{3}
-2. CPF = /^[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}/
+    * CEP = \d{5}-\d{3}
+    * CPF = /^[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}/
 6. Atributos do tipo texto:
     * nome
     * email
