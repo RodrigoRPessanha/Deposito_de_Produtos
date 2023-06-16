@@ -1,4 +1,4 @@
-1. Atributos em geral:
+1. Atributos:
     * Atributo geral:
         * id
     * Pessoa
