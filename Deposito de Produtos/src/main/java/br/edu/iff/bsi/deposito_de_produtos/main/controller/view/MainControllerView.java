@@ -1,4 +1,4 @@
-package br.edu.iff.bsi.main.controller.view;
+package br.edu.iff.bsi.deposito_de_produtos.main.controller.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +13,8 @@ public class MainControllerView {
         return "index";
     }
 
-//    @GetMapping(("/{id}"))
-//    public String page(@PathVariable("id") int id){
-//        return "index";
-//    }
+    @GetMapping(("/{id}"))
+    public String page(@PathVariable("id") int id){
+        return "index";
+    }
 }
