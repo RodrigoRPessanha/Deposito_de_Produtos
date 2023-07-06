@@ -7,7 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DepositoDeProdutosApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DepositoDeProdutosApplication.class, args);
+        try {
+            SpringApplication.run(DepositoDeProdutosApplication.class, args);
+        }catch (Exception e){
+            System.out.println("Message = " + e.getMessage());
+        }
     }
 
 }
