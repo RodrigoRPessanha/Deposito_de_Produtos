@@ -13,11 +13,8 @@ public class SetorDeposito {
     @Column(nullable = false)
     private String descricao;
     @Column(nullable = true)
-    @OneToMany(mappedBy = "setor", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Produto> produtos = new ArrayList<>();
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Deposito deposito;
 
     public Long getId() {
         return id;
@@ -43,11 +40,4 @@ public class SetorDeposito {
         this.produtos = produtos;
     }
 
-    public Deposito getDeposito() {
-        return deposito;
-    }
-
-    public void setDeposito(Deposito deposito) {
-        this.deposito = deposito;
-    }
 }
