@@ -8,14 +8,17 @@
 
 
     <!-- Campos do Deposito -->
-<!--    <fieldset>-->
-<!--        <form action="/addDeposito" method="post">-->
-<!--            <h3>Deposito</h3>-->
+    <fieldset>
+        <form action="/addDeposito" method="post">
+            <h3>Deposito</h3>
+
+            <label for="descricaoDeposito">Setor:</label>
+            <input type="text" name="descricao" id="descricaoDeposito">
 <!--            <label for="setor">Setor:</label>-->
 <!--            <input type="text" name="setor" id="setor">-->
-<!--            <input type="submit" value="Adicionar">-->
-<!--        </form>-->
-<!--    </fieldset><br><br>-->
+            <input type="submit" value="Adicionar">
+        </form>
+    </fieldset><br><br>
 
     <!-- Campos do Endereco -->
     <fieldset>
@@ -59,6 +62,12 @@
             </select><br><br>
             <label for="email">Email:</label>
             <input type="text" name="email" id="email"><br><br>
+            <label for="telefone">Telefone:</label>
+            <input type="text" name="telefone" id="telefoneFunc"><br><br>
+<!--            <label for="endereco">Endereco:</label>-->
+<!--            <input type="text" name="endereco" id="endereco"><br><br>-->
+<!--            <label for="setor">Setor:</label>-->
+<!--            <input type="text" name="setor" id="setor"><br><br>-->
             <input type="submit" value="Adicionar">
         </form>
     </fieldset><br><br>
@@ -87,6 +96,8 @@
             <h3>SetorDeposito</h3>
             <label for="descricao">Descrição:</label>
             <input type="text" name="descricao" id="descricaoSetor"><br><br>
+            <label for="depositoSetor">Deposito:</label>
+            <input type="text" name="deposito" id="depositoSetor"><br><br>
             <input type="submit" value="Adicionar">
         </form>
     </fieldset><br><br>

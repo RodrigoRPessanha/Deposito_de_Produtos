@@ -10,12 +10,13 @@ public class SetorDeposito {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String descricao;
-    @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "setor", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Produto> produtos = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "deposito_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Deposito deposito;
 
     public Long getId() {

@@ -3,6 +3,9 @@ package br.edu.iff.bsi.deposito_de_produtos.model;
 
 import jakarta.persistence.*;
 
+
+import java.util.Collection;
+
 @Entity
 public class Funcionario{
 
@@ -10,31 +13,34 @@ public class Funcionario{
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String cpf;
-    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
     private FuncaoEnum funcao;
+    @Column(nullable = false)
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false)
     private Endereco endereco;
-    @OneToOne
-    @JoinColumn(name = "telefone_id", referencedColumnName = "id")
-    private Telefone telefone;
-
-    @OneToOne
-    @JoinColumn(name = "setor_id", referencedColumnName = "id")
+    @ElementCollection
+    @Column(nullable = false)
+    private Collection<String> telefone;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "setor_id", referencedColumnName = "id", nullable = false)
     private SetorDeposito setor;
 
-    public Funcionario(Long id, String nome, String cpf, String email, Endereco endereco, Telefone telefone, FuncaoEnum funcao) {
+    public Funcionario(Long id, String nome, String cpf, String email, Endereco endereco, String telefone, FuncaoEnum funcao, SetorDeposito setor) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.endereco = endereco;
-        this.telefone = telefone;
+        this.telefone.add(telefone);
         this.funcao = funcao;
+        this.setor = setor;
     }
 
 
@@ -86,11 +92,11 @@ public class Funcionario{
         this.endereco = endereco;
     }
 
-    public Telefone getTelefone() {
+    public Collection<String> getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Telefone telefone) {
-        this.telefone = telefone;
+    public void addTelefone(String telefone) {
+        this.telefone.add(telefone);
     }
 }

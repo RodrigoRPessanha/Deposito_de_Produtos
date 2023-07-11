@@ -13,8 +13,4 @@ public class MainControllerView {
         return "index";
     }
 
-    @GetMapping(("/{id}"))
-    public String page(@PathVariable("id") int id){
-        return "index";
-    }
 }

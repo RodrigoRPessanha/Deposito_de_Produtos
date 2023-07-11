@@ -9,12 +9,17 @@ public class Produto {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    private String descricao, codigoDeBarras;
+    @Column(nullable = false)
+    private String descricao;
+    @Column(nullable = false)
+    private String codigoDeBarras;
+    @Column(nullable = false)
     private int quantidade;
+    @Column(nullable = false)
     private BigDecimal precoCusto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "setor_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "setor_id", nullable = false)
     private SetorDeposito setor;
 
     public Long getId() {

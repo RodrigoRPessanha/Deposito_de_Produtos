@@ -7,11 +7,18 @@ import java.util.List;
 
 @Entity
 public class Deposito {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    @OneToMany(mappedBy = "deposito", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @Column(nullable = false)
+    private String descricao;
+
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "deposito", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<SetorDeposito> setores = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -27,5 +34,13 @@ public class Deposito {
 
     public void setSetores(List<SetorDeposito> setores) {
         this.setores = setores;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }

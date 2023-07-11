@@ -1,22 +1,26 @@
 package br.edu.iff.bsi.deposito_de_produtos.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Endereco {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String rua;
+    @Column(nullable = false)
     private String numero;
+    @Column(nullable = false)
     private String bairro;
+    @Column(nullable = false)
     private String cidade;
+    @Column(nullable = false)
 
     private String estado;
+    @Column(nullable = false)
     private String cep;
+    @Column(nullable = false)
 
     public String getEndereco(){
         return this.rua + ", " + this.numero + " - " + this.bairro + " - " + this.cidade + " - " + this.estado + " - " + this.cep;
