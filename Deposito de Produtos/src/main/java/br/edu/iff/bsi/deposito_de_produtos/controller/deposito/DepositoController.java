@@ -14,7 +14,7 @@ public class DepositoController {
     private DepositoRepository res;
     @PostMapping("/addDeposito")
     @ResponseBody
-    public String addTelefone(@ModelAttribute Deposito deposito){
+    public String addDeposito(@ModelAttribute Deposito deposito){
         Deposito d = res.save(deposito);
         return "Deposito adicionado";
     }
