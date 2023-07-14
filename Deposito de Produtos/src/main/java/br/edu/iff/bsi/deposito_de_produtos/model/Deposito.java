@@ -16,9 +16,8 @@ public class Deposito {
     private String descricao;
 
     @Column(nullable = true)
-    @OneToMany(mappedBy = "deposito", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<SetorDeposito> setores = new ArrayList<>();
-
 
     public Long getId() {
         return id;

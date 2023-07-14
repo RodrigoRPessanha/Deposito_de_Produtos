@@ -18,10 +18,6 @@ public class Produto {
     @Column(nullable = false)
     private BigDecimal precoCusto;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "setor_id", nullable = false)
-    private SetorDeposito setor;
-
     public Long getId() {
         return id;
     }
@@ -60,13 +56,5 @@ public class Produto {
 
     public void setPrecoCusto(BigDecimal precoCusto) {
         this.precoCusto = precoCusto;
-    }
-
-    public SetorDeposito getSetor() {
-        return setor;
-    }
-
-    public void setSetor(SetorDeposito setor) {
-        this.setor = setor;
     }
 }
