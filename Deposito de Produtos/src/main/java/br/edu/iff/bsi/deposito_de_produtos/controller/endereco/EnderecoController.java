@@ -14,8 +14,8 @@ public class EnderecoController {
     private EnderecoRepository res;
     @PostMapping("/addEndereco")
     @ResponseBody
-    public String addTelefone(@ModelAttribute Endereco endereco){
+    public String addEndereco(@ModelAttribute Endereco endereco){
         Endereco e = res.save(endereco);
-        return "Endereço adicionado --> " + e.getEndereco();
+        return "Endereço adicionado --> " + e.enderecoFormatado();
     }
 }

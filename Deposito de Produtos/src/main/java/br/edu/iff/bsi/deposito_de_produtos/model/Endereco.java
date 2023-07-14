@@ -22,8 +22,8 @@ public class Endereco {
     private String cep;
     @Column(nullable = false)
 
-    public String getEndereco(){
-        return this.rua + ", " + this.numero + " - " + this.bairro + " - " + this.cidade + " - " + this.estado + " - " + this.cep;
+    public String enderecoFormatado(){
+        return this.rua + ", " + this.numero + " - " + this.bairro + ", " + this.cidade + " - " + this.estado + ", " + this.cep;
     }
 
     public Long getId() {

@@ -14,7 +14,7 @@ public class ProdutoController {
     private ProdutoRepository res;
     @PostMapping("/addProduto")
     @ResponseBody
-    public String addTelefone(@ModelAttribute Produto produto){
+    public String addProduto(@ModelAttribute Produto produto){
         Produto p = res.save(produto);
         return "Produto adicionado --> " + p.getDescricao();
     }

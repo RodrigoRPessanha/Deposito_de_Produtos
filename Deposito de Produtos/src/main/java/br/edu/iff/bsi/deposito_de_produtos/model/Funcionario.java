@@ -13,23 +13,39 @@ public class Funcionario{
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String nome;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String cpf;
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
     private FuncaoEnum funcao;
-    @Column(nullable = false)
+
+    public Funcionario() {
+    }
+
+    public Funcionario(Long id, String nome, String cpf, FuncaoEnum funcao, String email, Endereco endereco, Collection<String> telefone, SetorDeposito setor) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.funcao = funcao;
+        this.email = email;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.setor = setor;
+    }
+
+    @Column(nullable = true)
     private String email;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = true)
     private Endereco endereco;
     @ElementCollection
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Collection<String> telefone;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "setor_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "setor_id", referencedColumnName = "id", nullable = true)
     private SetorDeposito setor;
 
     public Funcionario(Long id, String nome, String cpf, String email, Endereco endereco, String telefone, FuncaoEnum funcao, SetorDeposito setor) {
