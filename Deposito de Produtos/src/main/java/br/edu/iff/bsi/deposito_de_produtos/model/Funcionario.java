@@ -24,17 +24,6 @@ public class Funcionario{
     public Funcionario() {
     }
 
-    public Funcionario(Long id, String nome, String cpf, FuncaoEnum funcao, String email, Endereco endereco, Collection<String> telefone, SetorDeposito setor) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.funcao = funcao;
-        this.email = email;
-        this.endereco = endereco;
-        this.telefone = telefone;
-        this.setor = setor;
-    }
-
     @Column(nullable = true)
     private String email;
 
@@ -48,17 +37,16 @@ public class Funcionario{
     @JoinColumn(name = "setor_id", referencedColumnName = "id", nullable = true)
     private SetorDeposito setor;
 
-    public Funcionario(Long id, String nome, String cpf, String email, Endereco endereco, String telefone, FuncaoEnum funcao, SetorDeposito setor) {
+    public Funcionario(Long id, String nome, String cpf, FuncaoEnum funcao, String email, Endereco endereco, String telefone, SetorDeposito setor) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
+        this.funcao = funcao;
         this.email = email;
         this.endereco = endereco;
         this.telefone.add(telefone);
-        this.funcao = funcao;
         this.setor = setor;
     }
-
 
     public Long getId() {
         return id;

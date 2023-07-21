@@ -1,4 +1,4 @@
-package br.edu.iff.bsi.deposito_de_produtos.controller.funcionario;
+package br.edu.iff.bsi.deposito_de_produtos.controller.view;
 
 import br.edu.iff.bsi.deposito_de_produtos.model.FuncaoEnum;
 import org.springframework.stereotype.Component;
