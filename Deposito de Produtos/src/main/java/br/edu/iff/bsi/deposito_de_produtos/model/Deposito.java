@@ -8,9 +8,11 @@ import java.util.List;
 @Entity
 public class Deposito {
 
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
 
     @Column(nullable = false)
     private String descricao;
@@ -18,6 +20,14 @@ public class Deposito {
     @Column(nullable = true)
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<SetorDeposito> setores = new ArrayList<>();
+
+    public Deposito() {
+    }
+
+    public Deposito(Long id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
     public Long getId() {
         return id;
