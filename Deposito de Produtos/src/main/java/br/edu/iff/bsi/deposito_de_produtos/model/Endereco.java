@@ -16,8 +16,9 @@ public class Endereco {
     @Column(nullable = false)
     private String cidade;
     @Column(nullable = false)
-
     private String estado;
+
+
     @Column(nullable = false)
     private String cep;
 

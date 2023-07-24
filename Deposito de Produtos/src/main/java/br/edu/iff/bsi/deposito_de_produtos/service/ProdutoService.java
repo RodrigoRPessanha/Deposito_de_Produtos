@@ -16,9 +16,14 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository res;
     public String addProduto(@ModelAttribute Produto produto){
-        produto.trim();
-        Produto p = res.findById(res.findByDescricao(produto.getDescricao(), produto.getCodigoDeBarras())).get();
-        return (produto.getDescricao() == p.getDescricao()) ? null : "Produto " + res.save(produto).getDescricao() + " adicionado";
+        Produto p = produto;
+        try{
+            produto.trim();
+            p = res.findById(res.findByDescricao(produto.getDescricao(), produto.getCodigoDeBarras())).get();
+            return null;
+        }catch (Exception e){
+            return "Produto " + res.save(produto).getDescricao() + " adicionado";
+        }
     }
     public Produto updateProduto(String descricaoAtual,String codigodeBarrasAtual, String descricaoNova, String codigoDeBarrasNovo, int quantidadeNova, BigDecimal precoCustoNovo){
         Produto produto;

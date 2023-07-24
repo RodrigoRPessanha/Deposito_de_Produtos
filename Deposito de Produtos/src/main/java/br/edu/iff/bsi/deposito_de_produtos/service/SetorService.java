@@ -15,9 +15,14 @@ public class SetorService {
     @Autowired
     private SetorRepository res;
     public String addSetor(@ModelAttribute SetorDeposito setor){
-        setor.trim();
-        SetorDeposito s = res.findById(res.findByDescricao(setor.getDescricao())).get();
-        return (setor.getDescricao() == s.getDescricao()) ? null : "Setor " + res.save(setor).getDescricao() + " adicionado";
+        SetorDeposito s = setor;
+        try{
+            setor.trim();
+            s = res.findById(res.findByDescricao(setor.getDescricao())).get();
+            return null;
+        }catch (Exception e){
+            return "Setor " + res.save(setor).getDescricao() + " adicionado";
+        }
     }
     public SetorDeposito updateSetor(String descricaoAtual, String descricaoNova){
         SetorDeposito setor;

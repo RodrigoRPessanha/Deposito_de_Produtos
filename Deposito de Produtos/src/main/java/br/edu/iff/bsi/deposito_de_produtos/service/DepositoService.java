@@ -15,9 +15,14 @@ public class DepositoService {
     @Autowired
     private DepositoRepository res;
     public String addDeposito(@ModelAttribute Deposito deposito){
-        deposito.trim();
-        Deposito d = res.findById(res.findByDescricao(deposito.getDescricao())).get();
-        return (deposito.getDescricao() == d.getDescricao()) ? null : "Deposito " + res.save(deposito).getDescricao() + " adicionado";
+        Deposito d = deposito;
+        try{
+            deposito.trim();
+            d = res.findById(res.findByDescricao(deposito.getDescricao())).get();
+            return null;
+        } catch (Exception e){
+            return "Deposito " + res.save(deposito).getDescricao() + " adicionado";
+        }
     }
     public Deposito updateDeposito(String descricaoAtual, String descricaoNova){
         Deposito setor;

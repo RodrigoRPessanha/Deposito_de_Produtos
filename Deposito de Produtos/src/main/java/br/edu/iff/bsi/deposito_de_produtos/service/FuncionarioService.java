@@ -14,8 +14,13 @@ public class FuncionarioService {
     @Autowired
     private FuncionarioRepository res;
     public String addFuncionario(@ModelAttribute Funcionario funcionario){
-        Funcionario f = res.findById(funcionario.getId()).get();
-        return (funcionario.getNome() == f.getNome()) ? null : "Funcionario " + res.save(funcionario).getNome() + " adicionado";
+        Funcionario f = funcionario;
+        try{
+            f = res.findById(funcionario.getId()).get();
+            return null;
+        }catch(Exception e){
+            return "Funcionario " + res.save(funcionario).getNome() + " adicionado";
+        }
     }
     public Funcionario updateFuncionario(@ModelAttribute Funcionario funcionario){
         Funcionario funcionarioNovo;
