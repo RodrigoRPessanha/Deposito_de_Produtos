@@ -2,7 +2,6 @@ package br.edu.iff.bsi.deposito_de_produtos.controller.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainControllerView {
     @GetMapping()
     public String page(){
-        return "index";
+        return "layoutBase";
     }
 
 }
