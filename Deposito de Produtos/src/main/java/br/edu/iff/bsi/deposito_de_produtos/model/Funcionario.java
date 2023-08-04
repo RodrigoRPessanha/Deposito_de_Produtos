@@ -3,7 +3,6 @@ package br.edu.iff.bsi.deposito_de_produtos.model;
 
 import jakarta.persistence.*;
 
-
 import java.util.Collection;
 
 @Entity
@@ -39,12 +38,12 @@ public class Funcionario{
 
     public Funcionario(Long id, String nome, String cpf, FuncaoEnum funcao, String email, Endereco endereco, String telefone, SetorDeposito setor) {
         this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
+        this.nome = nome.trim();
+        this.cpf = cpf.trim();
         this.funcao = funcao;
-        this.email = email;
+        this.email = email.trim();
         this.endereco = endereco;
-        this.telefone.add(telefone);
+        this.telefone.add(telefone.trim());
         this.setor = setor;
     }
 
@@ -61,7 +60,7 @@ public class Funcionario{
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.trim();
     }
 
     public String getCpf() {
@@ -69,7 +68,7 @@ public class Funcionario{
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf = cpf.trim();
     }
 
     public FuncaoEnum getFuncao() {
@@ -85,7 +84,7 @@ public class Funcionario{
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.trim();
     }
 
     public Endereco getEndereco() {
@@ -101,6 +100,10 @@ public class Funcionario{
     }
 
     public void addTelefone(String telefone) {
-        this.telefone.add(telefone);
+        this.telefone.add(telefone.trim());
     }
+    public void setTelefone(Collection<String> telefones) {
+        this.telefone = telefone;
+    }
+
 }

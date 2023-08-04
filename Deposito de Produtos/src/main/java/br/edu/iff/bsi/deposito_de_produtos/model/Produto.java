@@ -18,6 +18,11 @@ public class Produto {
     @Column(nullable = false)
     private BigDecimal precoCusto;
 
+    public void trim(){
+        this.descricao = this.descricao.trim();
+        this.codigoDeBarras = this.codigoDeBarras.trim();
+    }
+
     public Long getId() {
         return id;
     }

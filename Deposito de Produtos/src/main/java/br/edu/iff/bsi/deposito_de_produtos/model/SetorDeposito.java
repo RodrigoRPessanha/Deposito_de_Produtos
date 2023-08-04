@@ -16,6 +16,9 @@ public class SetorDeposito {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Produto> produtos = new ArrayList<>();
 
+    public void trim(){
+        this.descricao = this.descricao.trim();
+    }
     public Long getId() {
         return id;
     }
@@ -29,7 +32,7 @@ public class SetorDeposito {
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        this.descricao = descricao.trim();
     }
 
     public List<Produto> getProdutos() {

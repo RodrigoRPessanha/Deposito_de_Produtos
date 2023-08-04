@@ -16,16 +16,23 @@ public class Endereco {
     @Column(nullable = false)
     private String cidade;
     @Column(nullable = false)
-
     private String estado;
+
+
     @Column(nullable = false)
     private String cep;
-    @Column(nullable = false)
 
     public String enderecoFormatado(){
         return this.rua + ", " + this.numero + " - " + this.bairro + ", " + this.cidade + " - " + this.estado + ", " + this.cep;
     }
-
+    public void trim(){
+        this.rua = this.rua.trim();
+        this.numero = this.numero.trim();
+        this.bairro = this.bairro.trim();
+        this.cidade = this.cidade.trim();
+        this.estado = this.estado.trim();
+        this.cep = this.cep.trim();
+    }
     public Long getId() {
         return id;
     }

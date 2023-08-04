@@ -29,6 +29,9 @@ public class Deposito {
         this.descricao = descricao;
     }
 
+    public void trim(){
+        this.descricao = this.descricao.trim();
+    }
     public Long getId() {
         return id;
     }
@@ -50,6 +53,6 @@ public class Deposito {
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        this.descricao = descricao.trim();
     }
 }
