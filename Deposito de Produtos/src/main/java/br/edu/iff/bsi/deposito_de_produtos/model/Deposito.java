@@ -46,8 +46,12 @@ public class Deposito implements Serializable {
         return setores;
     }
 
-    public void setSetores(List<SetorDeposito> setores) {
-        this.setores = setores;
+    public void addSetores(SetorDeposito setores) {
+        this.setores.add(setores);
+    }
+
+    public void removeSetor(SetorDeposito setores) {
+        this.setores.remove(setores);
     }
 
     public String getDescricao() {
