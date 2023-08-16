@@ -1,6 +1,8 @@
 package br.edu.iff.bsi.deposito_de_produtos.service;
 
+import br.edu.iff.bsi.deposito_de_produtos.model.Produto;
 import br.edu.iff.bsi.deposito_de_produtos.model.SetorDeposito;
+import br.edu.iff.bsi.deposito_de_produtos.repository.ProdutoRepository;
 import br.edu.iff.bsi.deposito_de_produtos.repository.SetorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,33 +15,82 @@ import java.util.Optional;
 public class SetorService {
 
     @Autowired
-    private SetorRepository res;
+    private SetorRepository resSetor;
+    @Autowired
+    private ProdutoRepository resProduto;
     public String addSetor(@ModelAttribute SetorDeposito setor){
         SetorDeposito s = setor;
         try{
             setor.trim();
-            s = res.findById(res.findByDescricao(setor.getDescricao())).get();
+            s = resSetor.findById(resSetor.findByDescricao(setor.getDescricao())).get();
             return null;
         }catch (Exception e){
-            return "Setor " + res.save(setor).getDescricao() + " adicionado";
+            return "Setor " + resSetor.save(setor).getDescricao() + " adicionado";
         }
     }
     public SetorDeposito updateSetor(String descricaoAtual, String descricaoNova){
         SetorDeposito setor;
-        Optional<SetorDeposito> s = res.findById(res.findByDescricao(descricaoAtual));
+        Optional<SetorDeposito> s = resSetor.findById(resSetor.findByDescricao(descricaoAtual));
         if (s.isPresent()){
             setor = s.get();
             setor.setDescricao(descricaoNova);
-            setor = res.save(setor);
+            setor = resSetor.save(setor);
         }else{
             setor = null;
         }
         return setor;
     }
+    public SetorDeposito updateSetor(Long id, String descricaoNova){
+        SetorDeposito setor;
+        Optional<SetorDeposito> s = resSetor.findById(id);
+        if (s.isPresent()){
+            setor = s.get();
+            setor.setDescricao(descricaoNova);
+            setor = resSetor.save(setor);
+        }else{
+            setor = null;
+        }
+        return setor;
+    }
+
+    public String addProdutos(Long setorId, Long produtoId){
+
+        SetorDeposito setor = resSetor.findById(setorId).get();
+        List<Produto> produtos = setor.getProdutos();
+        try{
+            if(produtos.contains(resProduto.findById(produtoId).get())){
+                return null;
+            }
+            setor.addProdutos(resProduto.findById(produtoId).get());
+            resSetor.flush();
+            return "Produto adicionado!";
+        }catch (Exception e){
+            return null;
+        }
+    }
+    public String removerProdutos(Long setorId, Long produtoId){
+        SetorDeposito setor = resSetor.findById(setorId).get();
+        List<Produto> produtos = setor.getProdutos();
+        try{
+            if(!produtos.contains(resProduto.findById(produtoId).get())){
+                return null;
+            }
+            setor.removerProduto(resProduto.findById(produtoId).get());
+            resSetor.flush();
+            return "Produto "+ produtoId + " do setor "+ setorId + " deletado!";
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+
     public void deletarSetor(String descricao){
-        res.deleteById(res.findByDescricao(descricao));
+        resSetor.deleteById(resSetor.findByDescricao(descricao));
+    }
+    public void deletarSetor(Long id){
+        resSetor.deleteById(id);
     }
     public List<SetorDeposito> findAllSetores(){
-        return res.findAll();
+        return resSetor.findAll();
     }
 }

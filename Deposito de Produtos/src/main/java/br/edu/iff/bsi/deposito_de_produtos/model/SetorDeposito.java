@@ -45,5 +45,11 @@ public class SetorDeposito implements Serializable {
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }
+    public void addProdutos(Produto produto){
+        this.produtos.add(produto);
+    }
+    public void removerProduto(Produto produto){
+        this.produtos.remove(produto);
+    }
 
 }

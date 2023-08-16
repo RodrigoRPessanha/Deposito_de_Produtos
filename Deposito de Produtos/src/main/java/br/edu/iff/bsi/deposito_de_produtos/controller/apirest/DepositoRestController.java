@@ -4,6 +4,8 @@ import br.edu.iff.bsi.deposito_de_produtos.model.Deposito;
 import br.edu.iff.bsi.deposito_de_produtos.model.SetorDeposito;
 import br.edu.iff.bsi.deposito_de_produtos.service.DepositoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,34 +24,44 @@ public class DepositoRestController {
 
     @PostMapping
     @ResponseBody
-    public String addDeposito(@RequestBody Deposito deposito){
-
+    public ResponseEntity<String> addDeposito(@RequestBody Deposito deposito){
         String s = service.addDeposito(deposito);
-        return (s != null) ? s : "Deposito " + deposito.getDescricao() + " já existe";
+        return (s != null) ? ResponseEntity.status(HttpStatus.CREATED).body(s)
+                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Deposito " + deposito.getDescricao() + " já existe");
     }
 
-    @PutMapping(path = "/{id}/setor")
+    @PutMapping(path = "/{id}/setores")
     @ResponseBody
-    public String addSetor(@PathVariable("id") Long depositoId, @RequestBody SetorDeposito setorDeposito){
+    public ResponseEntity<String> addSetor(@PathVariable("id") Long depositoId, @RequestBody SetorDeposito setorDeposito){
         Long setorId = setorDeposito.getId();
         String s = service.addSetores(depositoId, setorId);
-        return (s != null) ? s : "Setor do id: " + setorId + " já existe no Deposito";
+        return (s != null) ? ResponseEntity.status(HttpStatus.OK).body(s)
+                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Setor do id: " + setorId + " já existe no Deposito");
+    }
+
+    @PutMapping(path = "/{idDeposito}/produtos/{idSetor}")
+    @ResponseBody
+    public ResponseEntity<String> deletarSetor(@PathVariable("idDeposito") Long idDeposito, @PathVariable("idSetor") Long idSetor){
+        String s = service.removerSetor(idDeposito, idSetor);
+        return (s != null) ? ResponseEntity.status(HttpStatus.OK).body(s)
+                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Setor do id: " + idSetor + " já existe no Deposito");
     }
     @PutMapping(path = "/{id}")
     @ResponseBody
-    public String updateDeposito(@PathVariable("id") Long id, @RequestParam String descricaoNova){
+    public ResponseEntity<String> updateDeposito(@PathVariable("id") Long id, @RequestParam String descricaoNova){
         try{
             Deposito s = service.updateDeposito(id, descricaoNova.trim());
-            return (s.getDescricao().equals(descricaoNova)) ? "O depósito foi atualizado com sucesso!" : "O depósito não foi atualizado com sucesso!";
+            return (s.getDescricao().equals(descricaoNova)) ? ResponseEntity.status(HttpStatus.CREATED).body("O depósito foi atualizado com sucesso!")
+                                                            : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("O depósito não foi atualizado com sucesso!");
         } catch(Exception e){
             System.out.println(e.getMessage());
-            return "Não existe depósito com a descricao atual!";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe depósito com a descricao atual!");
         }
     }
     @DeleteMapping(path = "/{id}")
     @ResponseBody
-    public String deleteDeposito(@PathVariable("id") Long id){
+    public ResponseEntity<String> deleteDeposito(@PathVariable("id") Long id){
         service.deletarDeposito(id);
-        return "Depósito do id"+ id +" deletado!";
+        return ResponseEntity.status(HttpStatus.OK).body("Depósito do id"+ id +" deletado!");
     }
 }

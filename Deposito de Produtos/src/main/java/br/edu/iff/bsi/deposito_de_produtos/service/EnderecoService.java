@@ -19,9 +19,26 @@ public class EnderecoService {
     }
     public Endereco updateEndereco(@ModelAttribute Endereco endereco){
         Endereco enderecoNovo;
-        Optional<Endereco> p = res.findById(endereco.getId());
-        if (p.isPresent()){
-            enderecoNovo = p.get();
+        Optional<Endereco> e = res.findById(endereco.getId());
+        if (e.isPresent()){
+            enderecoNovo = e.get();
+            enderecoNovo.setRua(endereco.getRua());
+            enderecoNovo.setNumero(endereco.getNumero());
+            enderecoNovo.setBairro(endereco.getBairro());
+            enderecoNovo.setCidade(endereco.getCidade());
+            enderecoNovo.setEstado(endereco.getEstado());
+            enderecoNovo.setCep(endereco.getCep());
+            enderecoNovo = res.save(enderecoNovo);
+        }else{
+            enderecoNovo = null;
+        }
+        return enderecoNovo;
+    }
+    public Endereco updateEndereco(Long id, Endereco endereco){
+        Endereco enderecoNovo;
+        Optional<Endereco> e = res.findById(id);
+        if (e.isPresent()){
+            enderecoNovo = e.get();
             enderecoNovo.setRua(endereco.getRua());
             enderecoNovo.setNumero(endereco.getNumero());
             enderecoNovo.setBairro(endereco.getBairro());
@@ -37,6 +54,9 @@ public class EnderecoService {
 
     public void deletarEndereco(@ModelAttribute Endereco endereco){
         res.delete(endereco);
+    }
+    public void deletarEndereco(Long id){
+        res.deleteById(id);
     }
     public List<Endereco> findAllEnderecos(){
         return res.findAll();

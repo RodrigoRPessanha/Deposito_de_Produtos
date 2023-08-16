@@ -29,17 +29,33 @@ public class DepositoService {
         }
     }
 
-    public String addSetores(Long depositoId, Long setor_Id){
+    public String addSetores(Long depositoId, Long setorId){
 
         Deposito deposito = resDeposito.findById(depositoId).get();
         List<SetorDeposito> depositos = deposito.getSetores();
         try{
-            if(depositos.contains(resSetor.findById(setor_Id).get())){
+            if(depositos.contains(resSetor.findById(setorId).get())){
                 return null;
             }
-            deposito.addSetores(resSetor.findById(setor_Id).get());
+            deposito.addSetores(resSetor.findById(setorId).get());
             resDeposito.flush();
             return "Setor adicionado!";
+        }catch (Exception e){
+            return null;
+        }
+
+    }
+    public String removerSetor(Long depositoId, Long setorId){
+
+        Deposito deposito = resDeposito.findById(depositoId).get();
+        List<SetorDeposito> setores = deposito.getSetores();
+        try{
+            if(!setores.contains(resSetor.findById(setorId).get())){
+                return null;
+            }
+            deposito.removeSetor(resSetor.findById(setorId).get());
+            resDeposito.flush();
+            return "Setor "+ setorId + " do deposito "+ depositoId +" deletado!";
         }catch (Exception e){
             return null;
         }
