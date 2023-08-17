@@ -40,15 +40,15 @@ public class SetorRestController {
         Long produtoId = produto.getId();
         String s = service.addProdutos(setorId, produtoId);
         return (s != null) ? ResponseEntity.status(HttpStatus.OK).body(s)
-                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Produto do id: " + produtoId + " já existe no setor");
+                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Produto do id " + produtoId + " já existe no setor");
     }
 
-    @PutMapping(path = "/{idSetor}/produtos/{idProduto}")
+    @DeleteMapping(path = "/{idSetor}/produtos/{idProduto}")
     @ResponseBody
     public ResponseEntity<String> deletarProduto(@PathVariable("idSetor") Long idSetor, @PathVariable("idProduto") Long idProduto){
         String s = service.removerProdutos(idSetor, idProduto);
         return (s != null) ? ResponseEntity.status(HttpStatus.OK).body(s)
-                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Produto do id: " + idProduto + " não existe no setor");
+                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Produto do id " + idProduto + " não existe no setor");
     }
     @GetMapping
     @ResponseBody
@@ -60,6 +60,6 @@ public class SetorRestController {
     @ResponseBody
     public ResponseEntity<String> deletarSetor(@PathVariable("id") Long id){
         service.deletarSetor(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Setor "+ id +" deletado!");
+        return ResponseEntity.status(HttpStatus.OK).body("Setor do id "+ id +" deletado!");
     }
 }

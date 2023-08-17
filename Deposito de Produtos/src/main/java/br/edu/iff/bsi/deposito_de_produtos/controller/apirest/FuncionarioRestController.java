@@ -69,7 +69,7 @@ public class FuncionarioRestController {
         Long idSetor = setor.getId();
         String s = service.setarSetor(id, idSetor);
         return (s != null) ? ResponseEntity.status(HttpStatus.OK).body(s)
-                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Setor: " + setor.getDescricao() + " já está cadastrado no funcionário");
+                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Setor " + setor.getDescricao() + " já está cadastrado no funcionário");
     }
     @DeleteMapping("/{id}/setor")
     @ResponseBody

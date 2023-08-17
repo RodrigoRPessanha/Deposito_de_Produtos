@@ -18,7 +18,7 @@ public class EnderecoRestController {
     @ResponseBody
     public ResponseEntity<String> addEndereco(@RequestBody Endereco endereco){
         Endereco e = service.addEndereco(endereco);
-        return ResponseEntity.status(HttpStatus.CREATED).body("O Endereço foi " + e.enderecoFormatado()+" foi adicionado");
+        return ResponseEntity.status(HttpStatus.CREATED).body("O Endereço " + e.enderecoFormatado()+" foi adicionado");
     }
     @PutMapping(path = "/{id}")
     @ResponseBody
