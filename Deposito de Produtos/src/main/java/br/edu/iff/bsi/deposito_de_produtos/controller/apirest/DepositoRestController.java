@@ -39,7 +39,7 @@ public class DepositoRestController {
                            : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Setor do id: " + setorId + " já existe no Deposito");
     }
 
-    @PutMapping(path = "/{idDeposito}/produtos/{idSetor}")
+    @PutMapping(path = "/{idDeposito}/setores/{idSetor}")
     @ResponseBody
     public ResponseEntity<String> deletarSetor(@PathVariable("idDeposito") Long idDeposito, @PathVariable("idSetor") Long idSetor){
         String s = service.removerSetor(idDeposito, idSetor);

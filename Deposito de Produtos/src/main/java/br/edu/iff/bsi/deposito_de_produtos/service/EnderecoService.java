@@ -61,4 +61,8 @@ public class EnderecoService {
     public List<Endereco> findAllEnderecos(){
         return res.findAll();
     }
+
+    public Endereco findById(Long id){
+        return res.findById(id).get();
+    }
 }

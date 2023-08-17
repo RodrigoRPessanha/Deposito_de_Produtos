@@ -4,6 +4,7 @@ package br.edu.iff.bsi.deposito_de_produtos.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -14,40 +15,27 @@ public class Funcionario implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String nome;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String cpf;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
+    @Column(nullable = false)
     private FuncaoEnum funcao;
-
-    public Funcionario() {
-    }
-
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String email;
 
+
+
+    @ElementCollection
+    @Column(nullable = false)
+    private Collection<String> telefone = new ArrayList<String>();
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = true)
     private Endereco endereco;
-    @ElementCollection
-    @Column(nullable = true)
-    private Collection<String> telefone;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "setor_id", referencedColumnName = "id", nullable = true)
     private SetorDeposito setor;
-
-    public Funcionario(Long id, String nome, String cpf, FuncaoEnum funcao, String email, Endereco endereco, String telefone, SetorDeposito setor) {
-        this.id = id;
-        this.nome = nome.trim();
-        this.cpf = cpf.trim();
-        this.funcao = funcao;
-        this.email = email.trim();
-        this.endereco = endereco;
-        this.telefone.add(telefone.trim());
-        this.setor = setor;
-    }
 
     public Long getId() {
         return id;
@@ -108,4 +96,15 @@ public class Funcionario implements Serializable {
         this.telefone = telefone;
     }
 
+    public void removeTelefone(String telefone) {
+        this.telefone.remove(telefone);
+    }
+
+    public SetorDeposito getSetor() {
+        return setor;
+    }
+
+    public void setSetor(SetorDeposito setor) {
+        this.setor = setor;
+    }
 }

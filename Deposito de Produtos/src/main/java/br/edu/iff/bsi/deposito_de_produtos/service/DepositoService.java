@@ -19,10 +19,9 @@ public class DepositoService {
     @Autowired
     private SetorRepository resSetor;
     public String addDeposito(@ModelAttribute Deposito deposito){
-        Deposito d = deposito;
         try{
             deposito.trim();
-            d = resDeposito.findById(resDeposito.findByDescricao(deposito.getDescricao())).get();
+            resDeposito.findById(resDeposito.findByDescricao(deposito.getDescricao())).get();
             return null;
         } catch (Exception e){
             return "Deposito " + resDeposito.save(deposito).getDescricao() + " adicionado";
