@@ -161,4 +161,14 @@ public class FuncionarioService {
     public List<Funcionario> findAllFuncionarios(){
         return resFunc.findAll();
     }
+
+    public List<String> findTelFromFunc(Long id){
+        return resFunc.findTelFromFunc(id);
+    }
+    public List<String> findEndFromFunc(Long id){
+        return resFunc.findEndFromFunc(id);
+    }
+    public List<String> findSetorFromFunc(Long id){
+        return resFunc.findSetorFromFunc(id);
+    }
 }

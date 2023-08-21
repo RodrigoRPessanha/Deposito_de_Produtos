@@ -21,6 +21,11 @@ public class DepositoRestController {
     public List<Deposito> getDeposito(){
         return service.findAllDepositos();
     }
+    @GetMapping(path = "/{id}/setores")
+    @ResponseBody
+    public List<String> findSetorByDepositoId(@PathVariable("id") Long id){
+        return service.findSetorByDepositoId(id);
+    }
 
     @PostMapping
     @ResponseBody

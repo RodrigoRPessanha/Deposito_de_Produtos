@@ -55,6 +55,11 @@ public class SetorRestController {
     public List<SetorDeposito> findAllSetores(){
         return service.findAllSetores();
     }
+    @GetMapping(path = "/{id}/produtos")
+    @ResponseBody
+    public List<String> findProdutoBySetorId(@PathVariable("id") Long id){
+        return service.findProdutoBySetorId(id);
+    }
 
     @DeleteMapping(path = "/{id}")
     @ResponseBody

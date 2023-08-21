@@ -90,5 +90,21 @@ public class FuncionarioRestController {
         return service.findAllFuncionarios();
     }
 
+    @GetMapping(path = "/{id}/telefones")
+    @ResponseBody
+    public List<String> findTelFromFunc(@PathVariable("id") Long id){
+        return service.findTelFromFunc(id);
+    }
+    @GetMapping(path = "/{id}/endereco")
+    @ResponseBody
+    public List<String> findEndFromFunc(@PathVariable("id") Long id){
+        return service.findEndFromFunc(id);
+    }
+    @GetMapping(path = "/{id}/setor")
+    @ResponseBody
+    public List<String> findSetorFromFunc(@PathVariable("id") Long id){
+        return service.findSetorFromFunc(id);
+    }
+
 
 }

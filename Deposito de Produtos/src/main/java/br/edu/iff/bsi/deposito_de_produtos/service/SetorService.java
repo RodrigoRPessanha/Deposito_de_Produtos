@@ -93,4 +93,8 @@ public class SetorService {
     public List<SetorDeposito> findAllSetores(){
         return resSetor.findAll();
     }
+
+    public List<String> findProdutoBySetorId(Long idDeposito){
+        return resSetor.findProdutoBySetorId(idDeposito);
+    }
 }

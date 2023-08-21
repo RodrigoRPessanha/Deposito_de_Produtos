@@ -30,10 +30,10 @@ public class Funcionario implements Serializable {
     @ElementCollection
     @Column(nullable = false)
     private Collection<String> telefone = new ArrayList<String>();
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne
     @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = true)
     private Endereco endereco;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne
     @JoinColumn(name = "setor_id", referencedColumnName = "id", nullable = true)
     private SetorDeposito setor;
 

@@ -93,4 +93,7 @@ public class DepositoService {
     public List<Deposito> findAllDepositos(){
         return resDeposito.findAll();
     }
+    public List<String> findSetorByDepositoId(Long id){
+        return resDeposito.findSetorByDepositoId(id);
+    }
 }
