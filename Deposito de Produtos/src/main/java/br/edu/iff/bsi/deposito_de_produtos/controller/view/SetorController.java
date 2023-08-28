@@ -18,7 +18,9 @@ public class SetorController {
     @GetMapping
     public String Setor(Model model){
         SetorDeposito s = new SetorDeposito();
+        List<SetorDeposito> setores = service.findAllSetores();
         model.addAttribute("setor", s);
+        model.addAttribute("descricao", setores);
         return "Setor";
     }
 
@@ -41,7 +43,7 @@ public class SetorController {
 
     @GetMapping("/getAllSetores")
     @ResponseBody
-    public List<SetorDeposito> findAllSetores(){
+    public List<SetorDeposito> findAllSetores(Model model){
         return service.findAllSetores();
     }
 

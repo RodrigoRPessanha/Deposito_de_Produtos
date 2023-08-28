@@ -25,7 +25,7 @@
   <div id="forms">
     <main class="form-signin w-100 m-auto" >
       <form th:action="@{/setor/addSetor}" th:object="${setor}" method="post">
-        <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">
+        <img class="mb-4" th:src="@{images/store.svg}" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">Cadastrar Setor</h1>
 
         <div class="form-floating">
@@ -39,7 +39,7 @@
 
     <main class="form-signin w-100 m-auto">
       <form th:action="@{/setor/updateSetor}" th:object="${setor}" method="post">
-        <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">
+        <img class="mb-4" th:src="@{images/edit.svg}" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">Editar Setor</h1>
 
         <div class="form-floating">
@@ -57,7 +57,7 @@
 
     <main class="form-signin w-100 m-auto">
       <form th:action="@{/setor/deleteSetor}" th:object="${setor}" method="post">
-        <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">
+        <img class="mb-4" th:src="@{images/withdraw.svg}" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">Deletar Setor</h1>
 
         <div class="form-floating">
@@ -68,17 +68,13 @@
         <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
       </form>
     </main>
+
     <main class="form-signin w-100 m-auto">
       <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">
-      <h1 class="h3 mb-3 fw-normal">Setores</h1>
-      <table style= "border:1px solid gray;">
-        <tr>
-          <th>Descricao</th>
-        </tr>
-        <tr th:each="setor : ${setor}">
-          <td th:text="${setor.descricao}"></td>
-        </tr>
-      </table>
+      <h1 class="h3 mb-3 fw-normal">Setores Cadastrados</h1>
+        <ul th:each="setor : ${descricao}">
+          <li th:text="${setor.descricao}"></li>
+        </ul>
     </main>
 
 
