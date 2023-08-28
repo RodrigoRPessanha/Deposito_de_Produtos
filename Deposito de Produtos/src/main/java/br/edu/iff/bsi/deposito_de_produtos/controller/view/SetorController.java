@@ -4,6 +4,7 @@ import br.edu.iff.bsi.deposito_de_produtos.model.SetorDeposito;
 import br.edu.iff.bsi.deposito_de_produtos.service.SetorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,13 @@ public class SetorController {
     @Autowired
     private SetorService service;
 
+    @GetMapping
+    public String Setor(Model model){
+        SetorDeposito s = new SetorDeposito();
+        model.addAttribute("setor", s);
+        return "Setor";
+    }
+
     @PostMapping("/addSetor")
     @ResponseBody
     public String addSetor(@ModelAttribute SetorDeposito setor){
@@ -22,12 +30,12 @@ public class SetorController {
     }
     @PostMapping("/updateSetor")
     @ResponseBody
-    public String updateSetor(String descricaoAtual, String descricaoNova){
+    public String updateSetor(Long id, String descricao){
         try{
-            SetorDeposito s = service.updateSetor(descricaoAtual, descricaoNova);
-            return (s.getDescricao() == descricaoNova) ? "O setor foi atualizado com sucesso!" : "O setor não foi atualizado com sucesso!";
+            SetorDeposito s = service.updateSetor(id, descricao);
+            return (s.getDescricao() == descricao) ? "O setor foi atualizado com sucesso!" : "O setor não foi atualizado com sucesso!";
         } catch(Exception e){
-            return "Não existe setor com a descricao atual!";
+            return e.getMessage();
         }
     }
 
@@ -39,9 +47,9 @@ public class SetorController {
 
     @PostMapping("/deleteSetor")
     @ResponseBody
-    public String deletarSetor(String descricao){
-        service.deletarSetor(descricao.trim());
-        return "Setor "+ descricao.trim() +" deletado!";
+    public String deletarSetor(Long id){
+        service.deletarSetor(id);
+        return "Setor "+ id +" deletado!";
     }
 
 }

@@ -9,9 +9,4 @@ public class MainControllerView {
     public String page(){
         return "layoutBase";
     }
-
-    @GetMapping(path = "/Setor")
-    public String Setor(){
-        return "Setor";
-    }
 }
