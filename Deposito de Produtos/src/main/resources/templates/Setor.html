@@ -70,11 +70,14 @@
     </main>
 
     <main class="form-signin w-100 m-auto">
-      <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">
+      <img class="mb-4" th:src="@{images/search.svg}" alt="" width="72" height="57">
       <h1 class="h3 mb-3 fw-normal">Setores Cadastrados</h1>
-        <ul th:each="setor : ${descricao}">
-          <li th:text="${setor.descricao}"></li>
-        </ul>
+      <table>
+        <tr th:each="setor : ${descricao}">
+          <td th:text="${setor.id}"></td>
+          <td th:text="${setor.descricao}"></td>
+        </tr>
+      </table>
     </main>
 
 
