@@ -66,3 +66,8 @@ td{
         border-right: 1px var(--bs-border-style) var(--bs-border-color)!important;
     }
 }
+
+.sub-item{
+    background-color: transparent!important;
+    padding: 0;
+}

@@ -25,48 +25,84 @@
 
   <aside class="d-flex flex-nowrap aside">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-      <a href="/setor" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <span class="fs-4">Setor</span>
-      </a>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">
-<!--            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>-->
-            <i class="bi bi-box-arrow-in-down me-2"></i>
-            Adicionar Setor
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-body-emphasis">
-<!--            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>-->
-              <i class="bi bi-pencil me-2"></i>
-              Editar Setor
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-body-emphasis">
-<!--            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>-->
-              <i class="bi bi-trash3 me-2"></i>
-            Remover Setor
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link link-body-emphasis">
-<!--            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>-->
-              <i class="bi bi-search me-2"></i>
-            Listar Setores
-          </a>
-        </li>
-      </ul>
-      <hr>
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>mdo</strong>
+        <a href="/setor" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <span class="fs-4">Deposito de Produtos</span>
         </a>
-        <ul th:replace="~{layoutBase :: dropdownMenuSidebar}"></ul>
-      </div>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" aria-current="page" data-bs-toggle="collapse" data-bs-target="#submenu-add" aria-expanded="false">
+                    Setor
+                </a>
+                <div id="submenu-add" class="collapse">
+                    <ul class="submenu">
+                        <li>
+                            <a href="#" class="nav-link active sub-item" aria-current="page">
+                                <i class="bi bi-box-arrow-in-down me-2"></i>
+                                Adicionar Setor
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link link-body-emphasis sub-item">
+                                <i class="bi bi-pencil me-2"></i>
+                                Editar Setor
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link link-body-emphasis sub-item">
+                                <i class="bi bi-trash3 me-2"></i>
+                                Remover Setor
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link link-body-emphasis sub-item">
+                                <i class="bi bi-search me-2"></i>
+                                Listar Setores
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#submenu-edit" aria-expanded="false">
+                    <i class="bi bi-pencil me-2"></i>
+                    Editar Setor
+                </a>
+                <div id="submenu-edit" class="collapse">
+                    <ul class="submenu">
+                        <li><a href="#">Subitem 2.1</a></li>
+                        <li><a href="#">Subitem 2.2</a></li>
+                        <li><a href="#">Subitem 2.3</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#submenu-remove" aria-expanded="false">
+                    <i class="bi bi-trash3 me-2"></i>
+                    Remover Setor
+                </a>
+                <div id="submenu-remove" class="collapse">
+                    <ul class="submenu">
+                        <li><a href="#">Subitem 3.1</a></li>
+                        <li><a href="#">Subitem 3.2</a></li>
+                        <li><a href="#">Subitem 3.3</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#submenu-list" aria-expanded="false">
+                    <i class="bi bi-search me-2"></i>
+                    Listar Setores
+                </a>
+                <div id="submenu-list" class="collapse">
+                    <ul class="submenu">
+                        <li><a href="#">Subitem 4.1</a></li>
+                        <li><a href="#">Subitem 4.2</a></li>
+                        <li><a href="#">Subitem 4.3</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
     </div>
   </aside>
 
