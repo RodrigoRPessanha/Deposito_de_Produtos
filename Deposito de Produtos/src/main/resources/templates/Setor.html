@@ -9,7 +9,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Signin Template · Bootstrap v5.3</title>
+  <title>Depósito de Produtos</title>
 
   <style th:replace="~{layoutBase :: styleInHtml}"></style>
   <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css}">
@@ -22,174 +22,168 @@
 
 
   <div th:replace="~{layoutBase :: dropdownTheme}"></div>
-
   <aside class="d-flex flex-nowrap aside">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-        <a href="/setor" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <span class="fs-4">Deposito de Produtos</span>
+      <a href="/setor" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <span class="fs-4">Deposito de Produtos</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item border-bottom" >
+          <a href="#" class="nav-link active setorMenu" aria-current="page" onclick="toggleMenuAside('.setorSub')" aria-expanded="false">
+            Setor
+          </a>
+          <div class="setorSub">
+            <ul class="submenu">
+              <li>
+                <a class="nav-link active sub-item" id="addS" aria-current="page" onclick="displayForms('#addS','.addSetor')">
+                  <i class="bi bi-box-arrow-in-down me-2"></i>
+                  Adicionar Setor
+                </a>
+              </li>
+              <li>
+                <a class="nav-link link-body-emphasis sub-item" id="editS" onclick="displayForms('#editS','.editSetor')">
+                  <i class="bi bi-pencil me-2"></i>
+                  Editar Setor
+                </a>
+              </li>
+              <li>
+                <a class="nav-link link-body-emphasis sub-item" id="removeS" onclick="displayForms('#removeS','.removeSetor')">
+                  <i class="bi bi-trash3 me-2"></i>
+                  Remover Setor
+                </a>
+              </li>
+              <li>
+                <a class="nav-link link-body-emphasis sub-item" id="listS" onclick="displayForms('#listS','.listSetor')">
+                  <i class="bi bi-search me-2"></i>
+                  Listar Setores
+                </a>
+              </li>
+            </ul>
+          </div>
+      </li>
+      <li class="nav-item border-bottom">
+        <a href="#" class="nav-link active produtoMenu" aria-current="page" onclick="toggleMenuAside('.produtoSub')" aria-expanded="false">
+            Produto
         </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page" data-bs-toggle="collapse" data-bs-target="#submenu-add" aria-expanded="false">
-                    Setor
-                </a>
-                <div id="submenu-add" class="collapse">
-                    <ul class="submenu">
-                        <li>
-                            <a href="#" class="nav-link active sub-item" aria-current="page">
-                                <i class="bi bi-box-arrow-in-down me-2"></i>
-                                Adicionar Setor
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link link-body-emphasis sub-item">
-                                <i class="bi bi-pencil me-2"></i>
-                                Editar Setor
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link link-body-emphasis sub-item">
-                                <i class="bi bi-trash3 me-2"></i>
-                                Remover Setor
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link link-body-emphasis sub-item">
-                                <i class="bi bi-search me-2"></i>
-                                Listar Setores
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+        <div class="produtoSub">
+          <ul class="submenu">
+            <li>
+              <a href="#" class="nav-link active sub-item" aria-current="page">
+                <i class="bi bi-box-arrow-in-down me-2"></i>
+                Adicionar Produto
+              </a>
             </li>
             <li>
-                <a href="#" class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#submenu-edit" aria-expanded="false">
-                    <i class="bi bi-pencil me-2"></i>
-                    Editar Setor
-                </a>
-                <div id="submenu-edit" class="collapse">
-                    <ul class="submenu">
-                        <li><a href="#">Subitem 2.1</a></li>
-                        <li><a href="#">Subitem 2.2</a></li>
-                        <li><a href="#">Subitem 2.3</a></li>
-                    </ul>
-                </div>
+              <a href="#" class="nav-link link-body-emphasis sub-item">
+                <i class="bi bi-pencil me-2"></i>
+                Editar Produto
+              </a>
             </li>
             <li>
-                <a href="#" class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#submenu-remove" aria-expanded="false">
-                    <i class="bi bi-trash3 me-2"></i>
-                    Remover Setor
-                </a>
-                <div id="submenu-remove" class="collapse">
-                    <ul class="submenu">
-                        <li><a href="#">Subitem 3.1</a></li>
-                        <li><a href="#">Subitem 3.2</a></li>
-                        <li><a href="#">Subitem 3.3</a></li>
-                    </ul>
-                </div>
+              <a href="#" class="nav-link link-body-emphasis sub-item">
+                <i class="bi bi-trash3 me-2"></i>
+                Remover Produto
+              </a>
             </li>
             <li>
-                <a href="#" class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#submenu-list" aria-expanded="false">
-                    <i class="bi bi-search me-2"></i>
-                    Listar Setores
-                </a>
-                <div id="submenu-list" class="collapse">
-                    <ul class="submenu">
-                        <li><a href="#">Subitem 4.1</a></li>
-                        <li><a href="#">Subitem 4.2</a></li>
-                        <li><a href="#">Subitem 4.3</a></li>
-                    </ul>
-                </div>
+              <a href="#" class="nav-link link-body-emphasis sub-item">
+                <i class="bi bi-search me-2"></i>
+                Listar Produtos
+              </a>
             </li>
-        </ul>
-    </div>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
   </aside>
 
-  <div id="forms">
-    <main class="form-signin w-100 m-auto" >
-      <form th:action="@{/setor/addSetor}" th:object="${setor}" method="post">
-<!--        <img class="mb-4" th:src="@{images/store.svg}" alt="" width="72" height="57">-->
-        <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Cadastrar Setor</h1>
+  <main id="main-content">
+    <div id="messageBox"></div>
+    <div id="forms">
+      <main class="form-signin w-100 m-auto addSetor" >
+        <form id="setorForm" th:action="@{/setor/addSetor}" th:object="${setor}" method="post">
+          <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Cadastrar Setor</h1>
 
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingDescricaoPost" placeholder="name@example.com" name="descricao" th:field="*{descricao}">
-          <label for="floatingDescricaoPost">Descrição</label>
-        </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingDescricaoPost" placeholder="name@example.com" name="descricao" th:field="*{descricao}" required>
+            <label for="floatingDescricaoPost">Descrição</label>
+          </div>
 
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
-      </form>
-    </main>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
+        </form>
+      </main>
 
-    <main class="form-signin w-100 m-auto">
-      <form th:action="@{/setor/updateSetor}" th:object="${setor}" method="post">
-<!--        <img class="mb-4" th:src="@{images/edit.svg}" alt="" width="72" height="57">-->
-        <i class="bi bi-pencil mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Editar Setor</h1>
+      <main class="form-signin w-100 m-auto editSetor">
+        <form th:action="@{/setor/updateSetor}" th:object="${setor}" method="post">
+          <i class="bi bi-pencil mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Editar Setor</h1>
 
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdEdit" placeholder="name@example.com" name="id" th:field="*{id}">
-          <label for="floatingIdEdit">Id:</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingDescricaoEdit" placeholder="name@example.com" name="descricao" th:field="*{descricao}">
-          <label for="floatingDescricaoEdit">Descrição</label>
-        </div>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdEdit" placeholder="name@example.com" name="id" th:field="*{id}" required>
+            <label for="floatingIdEdit">Id:</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingDescricaoEdit" placeholder="name@example.com" name="descricao" th:field="*{descricao}" required>
+            <label for="floatingDescricaoEdit">Descrição</label>
+          </div>
 
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
-      </form>
-    </main>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
+        </form>
+      </main>
 
-    <main class="form-signin w-100 m-auto">
-      <form th:action="@{/setor/deleteSetor}" th:object="${setor}" method="post">
-<!--        <img class="mb-4" th:src="@{images/withdraw.svg}" alt="" width="72" height="57">-->
-        <i class="bi bi-trash3 mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Deletar Setor</h1>
-
-
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingIdDelete" placeholder="name@example.com" name="id" th:field="*{id}">
-          <label for="floatingIdDelete">Id:</label>
-        </div>
-
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto">
-<!--      <img class="mb-4" th:src="@{images/search.svg}" alt="" width="72" height="57">-->
-      <i class="bi bi-search mb-4 icons"></i>
-      <h1 class="h3 mb-3 fw-normal">Setores Cadastrados</h1>
-      <table>
-        <tr th:each="setor : ${descricao}">
-          <td th:text="${setor.id}"></td>
-          <td th:text="${setor.descricao}"></td>
-        </tr>
-      </table>
-    </main>
+      <main class="form-signin w-100 m-auto removeSetor">
+        <form th:action="@{/setor/deleteSetor}" th:object="${setor}" method="post">
+          <i class="bi bi-trash3 mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Deletar Setor</h1>
 
 
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingIdDelete" placeholder="name@example.com" name="id" th:field="*{id}" required>
+            <label for="floatingIdDelete">Id:</label>
+          </div>
 
-<!--    <main class="form-signin w-100 m-auto">-->
-<!--      <form th:action="@{/setor/deleteSetor}" th:with="setor=${setor}, produto=${produto}"  method="post">-->
-<!--        <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">-->
-<!--        <h1 class="h3 mb-3 fw-normal">Adicionar Produto</h1>-->
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
+        </form>
+      </main>
 
-<!--        <div class="form-floating">-->
-<!--          <input type="text" class="form-control" id="floatingIdSetor" placeholder="name@example.com" name="id" th:field="*{setor.id}">-->
-<!--          <label for="floatingIdSetor">Id Setor:</label>-->
-<!--        </div>-->
-<!--        <div class="form-floating">-->
-<!--          <input type="text" class="form-control" id="floatingIdProduto" placeholder="name@example.com" name="id" th:field="*{setor.id}">-->
-<!--          <label for="floatingIdProduto">Id Produto:</label>-->
-<!--        </div>-->
+      <main class="form-signin w-100 m-auto listSetor">
+        <i class="bi bi-search mb-4 icons"></i>
+        <h1 class="h3 mb-3 fw-normal">Setores Cadastrados</h1>
+        <table>
+          <tr th:each="setor : ${descricao}">
+            <td th:text="${setor.id}"></td>
+            <td th:text="${setor.descricao}"></td>
+          </tr>
+        </table>
+          <button class="btn btn-primary btn-post w-100 py-2 reloadButton">Buscar</button>
+      </main>
 
-<!--        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>-->
-<!--      </form>-->
-<!--    </main>-->
-  </div>
+
+
+  <!--    <main class="form-signin w-100 m-auto">-->
+  <!--      <form th:action="@{/setor/deleteSetor}" th:with="setor=${setor}, produto=${produto}"  method="post">-->
+  <!--        <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">-->
+  <!--        <h1 class="h3 mb-3 fw-normal">Adicionar Produto</h1>-->
+
+  <!--        <div class="form-floating">-->
+  <!--          <input type="text" class="form-control" id="floatingIdSetor" placeholder="name@example.com" name="id" th:field="*{setor.id}">-->
+  <!--          <label for="floatingIdSetor">Id Setor:</label>-->
+  <!--        </div>-->
+  <!--        <div class="form-floating">-->
+  <!--          <input type="text" class="form-control" id="floatingIdProduto" placeholder="name@example.com" name="id" th:field="*{setor.id}">-->
+  <!--          <label for="floatingIdProduto">Id Produto:</label>-->
+  <!--        </div>-->
+
+  <!--        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>-->
+  <!--      </form>-->
+  <!--    </main>-->
+    </div>
+  </main>
   <script th:src="@{js/bootstrap.bundle.js}"></script>
+  <script th:src="@{js/setor.js}"></script>
 
 </body>
 </html>

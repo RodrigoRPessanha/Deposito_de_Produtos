@@ -2,12 +2,16 @@ package br.edu.iff.bsi.deposito_de_produtos.controller.view;
 
 import br.edu.iff.bsi.deposito_de_produtos.model.SetorDeposito;
 import br.edu.iff.bsi.deposito_de_produtos.service.SetorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(path = "/setor")
@@ -24,20 +28,42 @@ public class SetorController {
         return "Setor";
     }
 
+//    @PostMapping("/addSetor")
+//    @ResponseBody
+//    public String addSetor(@Valid @ModelAttribute SetorDeposito setor, BindingResult result){
+//        if (result.hasErrors()) {
+//            return "Erro: Descrição Obrigatória";
+//        }
+//        String s = service.addSetor(setor);
+//        return (s != null) ? s : "Deposito " + setor.getDescricao() + " já existe";
+//    }
+
     @PostMapping("/addSetor")
     @ResponseBody
-    public String addSetor(@ModelAttribute SetorDeposito setor){
-        String s = service.addSetor(setor);
-        return (s != null) ? s : "Deposito " + setor.getDescricao() + " já existe";
+    public Map<String, String> addSetor(@Valid @ModelAttribute SetorDeposito setor, BindingResult result) {
+        Map<String, String> response = new HashMap<>();
+
+        if (result.hasErrors()) {
+            response.put("error", "Descrição Obrigatória");
+        } else {
+            String s = service.addSetor(setor);
+            response.put("message", (s != null) ? s : "Deposito " + setor.getDescricao() + " já existe");
+        }
+
+        return response;
     }
+
     @PostMapping("/updateSetor")
     @ResponseBody
-    public String updateSetor(Long id, String descricao){
+    public Map<String, String> updateSetor(@Valid @ModelAttribute SetorDeposito setor){
+        Map<String, String> response = new HashMap<>();
         try{
-            SetorDeposito s = service.updateSetor(id, descricao);
-            return (s.getDescricao() == descricao) ? "O setor foi atualizado com sucesso!" : "O setor não foi atualizado com sucesso!";
+            SetorDeposito s = service.updateSetor(setor.getId(), setor.getDescricao());
+            response.put("message", (s.getDescricao() == setor.getDescricao()) ? "O setor foi atualizado com sucesso!" : "O setor não foi atualizado com sucesso!");
+            return response;
         } catch(Exception e){
-            return e.getMessage();
+            response.put("error", "Descrição Obrigatória");
+            return response;
         }
     }
 
@@ -49,9 +75,11 @@ public class SetorController {
 
     @PostMapping("/deleteSetor")
     @ResponseBody
-    public String deletarSetor(Long id){
+    public Map<String, String> deletarSetor(Long id){
+        Map<String, String> response = new HashMap<>();
         service.deletarSetor(id);
-        return "Setor "+ id +" deletado!";
+        response.put("message", "Setor "+ id +" deletado!");
+        return response;
     }
 
 }

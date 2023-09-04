@@ -2,6 +2,7 @@ package br.edu.iff.bsi.deposito_de_produtos.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,19 +15,19 @@ public class Funcionario implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-
+    @NotBlank(message = "Nome obrigatório.")
     @Column(nullable = false)
     private String nome;
+    @NotBlank(message = "CPF obrigatório.")
     @Column(nullable = false)
     private String cpf;
+    @NotBlank(message = "Função obrigatória.")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private FuncaoEnum funcao;
+    @NotBlank(message = "Email obrigatório.")
     @Column(nullable = false)
     private String email;
-
-
-
     @ElementCollection
     @Column(nullable = false)
     private Collection<String> telefone = new ArrayList<String>();

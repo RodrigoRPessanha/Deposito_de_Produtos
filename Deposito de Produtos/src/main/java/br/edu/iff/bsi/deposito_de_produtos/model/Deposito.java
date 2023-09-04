@@ -1,6 +1,7 @@
 package br.edu.iff.bsi.deposito_de_produtos.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,11 +15,9 @@ public class Deposito implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-
-
+    @NotBlank(message = "Descrição obrigatória.")
     @Column(nullable = false)
     private String descricao;
-
     @Column(nullable = true)
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<SetorDeposito> setores = new ArrayList<>();
