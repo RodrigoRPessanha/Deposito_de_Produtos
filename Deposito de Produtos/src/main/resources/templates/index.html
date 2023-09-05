@@ -1,106 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
 
 
-    <!-- Campos do Deposito -->
-    <fieldset>
-        <form action="/deposito/addDeposito" method="post">
-            <h3>Deposito</h3>
+<!-- Campos do Deposito -->
+<fieldset>
+  <form action="/deposito/addDeposito" method="post">
+    <h3>Deposito</h3>
 
-            <label for="descricaoDeposito">Descricao:</label>
-            <input type="text" name="descricao" id="descricaoDeposito"><br><br>
-            <label for="setor">Setor:</label>
-            <input type="text" name="setor" id="setorD"><br><br>
-            <input type="submit" value="Adicionar">
-        </form>
-    </fieldset><br><br>
+    <label for="descricaoDeposito">Descricao:</label>
+    <input type="text" name="descricao" id="descricaoDeposito"><br><br>
+    <label for="setor">Setor:</label>
+    <input type="text" name="setor" id="setorD"><br><br>
+    <input type="submit" value="Adicionar">
+  </form>
+</fieldset><br><br>
 
-    <!-- Campos do Endereco -->
-    <fieldset>
-        <form action="/endereco/addEndereco" method="post">
-            <h3>Endereco</h3>
-            <label for="rua">Rua:</label>
-            <input type="text" name="rua" id="rua"><br><br>
+<!-- Campos do Endereco -->
+<fieldset>
+  <form action="/endereco/addEndereco" method="post">
+    <h3>Endereco</h3>
+    <label for="rua">Rua:</label>
+    <input type="text" name="rua" id="rua"><br><br>
 
-            <label for="numero">Número:</label>
-            <input type="text" name="numero" id="numero"><br><br>
+    <label for="numero">Número:</label>
+    <input type="text" name="numero" id="numero"><br><br>
 
-            <label for="estado">Estado:</label>
-            <input type="text" name="estado" id="estado"><br><br>
+    <label for="estado">Estado:</label>
+    <input type="text" name="estado" id="estado"><br><br>
 
-            <label for="bairro">Bairro:</label>
-            <input type="text" name="bairro" id="bairro"><br><br>
+    <label for="bairro">Bairro:</label>
+    <input type="text" name="bairro" id="bairro"><br><br>
 
-            <label for="cidade">Cidade:</label>
-            <input type="text" name="cidade" id="cidade"><br><br>
+    <label for="cidade">Cidade:</label>
+    <input type="text" name="cidade" id="cidade"><br><br>
 
-            <label for="cep">CEP:</label>
-            <input type="text" name="cep" id="cep"><br><br>
-            <input type="submit" value="Adicionar">
-        </form>
-    </fieldset><br><br>
+    <label for="cep">CEP:</label>
+    <input type="text" name="cep" id="cep"><br><br>
+    <input type="submit" value="Adicionar">
+  </form>
+</fieldset><br><br>
 
-    <!-- Campos do Funcionario -->
-    <fieldset>
-        <form action="/funcionario/addFuncionario" method="post">
-            <h3>Funcionario</h3>
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" id="nome"><br><br>
-            <label for="cpf">CPF:</label>
-            <input type="text" name="cpf" id="cpf"><br><br>
-            <label for="funcao">Função:</label>
-            <select name="funcao" id="funcao">
-                <option value=1>GERENTE DE DEPOSITO</option>
-                <option value=2>ASSOCIADO DE DEPOSITO</option>
-                <option value=3>SUPERVISOR DE DEPOSITO</option>
-                <option value=4>OPERARIO DE DEPOSITO</option>
-            </select><br><br>
-            <label for="email">Email:</label>
-            <input type="text" name="email" id="email"><br><br>
-            <label for="telefoneFunc">Telefone:</label>
-            <input type="text" name="telefone" id="telefoneFunc"><br><br>
-            <label for="endereco">Endereco:</label>
-            <input type="text" name="endereco" id="endereco"><br><br>
-            <label for="setor">Setor:</label>
-            <input type="text" name="setor" id="setor"><br><br>
-            <input type="submit" value="Adicionar">
-        </form>
-    </fieldset><br><br>
-
-
-    <!-- Campos do Produto -->
-    <fieldset>
-        <form action="/produto/addProduto" method="post">
-            <h3>Produto</h3>
-            <label for="descricao">Descrição:</label>
-            <input type="text" name="descricao" id="descricao"><br><br>
-            <label for="codigoDeBarras">Código de Barras:</label>
-            <input type="text" name="codigoDeBarras" id="codigoDeBarras"><br><br>
-            <label for="quantidade">Quantidade:</label>
-            <input type="text" name="quantidade" id="quantidade"><br><br>
-            <label for="precoCusto">Preço de Custo:</label>
-            <input type="text" name="precoCusto" id="precoCusto"><br><br>
-            <input type="submit" value="Adicionar">
-        </form>
-    </fieldset><br><br>
+<!-- Campos do Funcionario -->
+<fieldset>
+  <form action="/funcionario/addFuncionario" method="post">
+    <h3>Funcionario</h3>
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" id="nome"><br><br>
+    <label for="cpf">CPF:</label>
+    <input type="text" name="cpf" id="cpf"><br><br>
+    <label for="funcao">Função:</label>
+    <select name="funcao" id="funcao">
+      <option value=1>GERENTE DE DEPOSITO</option>
+      <option value=2>ASSOCIADO DE DEPOSITO</option>
+      <option value=3>SUPERVISOR DE DEPOSITO</option>
+      <option value=4>OPERARIO DE DEPOSITO</option>
+    </select><br><br>
+    <label for="email">Email:</label>
+    <input type="text" name="email" id="email"><br><br>
+    <label for="telefoneFunc">Telefone:</label>
+    <input type="text" name="telefone" id="telefoneFunc"><br><br>
+    <label for="endereco">Endereco:</label>
+    <input type="text" name="endereco" id="endereco"><br><br>
+    <label for="setor">Setor:</label>
+    <input type="text" name="setor" id="setor"><br><br>
+    <input type="submit" value="Adicionar">
+  </form>
+</fieldset><br><br>
 
 
-    <!-- Campos do SetorDeposito -->
-    <fieldset>
-        <form action="/setor/addSetor" method="post">
-            <h3>SetorDeposito</h3>
-            <label for="descricao">Descrição:</label>
-            <input type="text" name="descricao" id="descricaoSetor"><br><br>
-            <input type="submit" value="Adicionar">
-        </form>
-    </fieldset><br><br>
+<!-- Campos do Produto -->
+<fieldset>
+  <form action="/produto/addProduto" method="post">
+    <h3>Produto</h3>
+    <label for="descricao">Descrição:</label>
+    <input type="text" name="descricao" id="descricao"><br><br>
+    <label for="codigoDeBarras">Código de Barras:</label>
+    <input type="text" name="codigoDeBarras" id="codigoDeBarras"><br><br>
+    <label for="quantidade">Quantidade:</label>
+    <input type="text" name="quantidade" id="quantidade"><br><br>
+    <label for="precoCusto">Preço de Custo:</label>
+    <input type="text" name="precoCusto" id="precoCusto"><br><br>
+    <input type="submit" value="Adicionar">
+  </form>
+</fieldset><br><br>
 
-    <!-- Adicionar produtos ao Setor -->
+
+<!-- Campos do SetorDeposito -->
+<fieldset>
+  <form action="/setor/addSetor" method="post">
+    <h3>SetorDeposito</h3>
+    <label for="descricao">Descrição:</label>
+    <input type="text" name="descricao" id="descricaoSetor"><br><br>
+    <input type="submit" value="Adicionar">
+  </form>
+</fieldset><br><br>
+
+<!-- Adicionar produtos ao Setor -->
 <!--    <fieldset>-->
 <!--        <form action="/setor/addProdutoSetor" method="post">-->
 <!--            <h3>Produto a ser adiciondo ao Setor</h3>-->
@@ -113,17 +113,17 @@
 <!--    </fieldset><br><br>-->
 
 <!--     Adicionar produtos ao Setor -->
-        <fieldset>
-            <form action="/setor/updateSetor" method="post">
-                <h3>Setor a ser modificado</h3>
-                <label for="descricaoAtual">Descricao Antiga:</label>
-                <input type="text" id="descricaoAtual" name="descricaoAtual" required><br><br>
-                <label for="descricaoNova">Descricao Nova:</label>
-                <input type="text" id="descricaoNova" name="descricaoNova" required><br><br>
+<fieldset>
+  <form action="/setor/updateSetor" method="post">
+    <h3>Setor a ser modificado</h3>
+    <label for="descricaoAtual">Descricao Antiga:</label>
+    <input type="text" id="descricaoAtual" name="descricaoAtual" required><br><br>
+    <label for="descricaoNova">Descricao Nova:</label>
+    <input type="text" id="descricaoNova" name="descricaoNova" required><br><br>
 
-                <input type="submit" value="Adicionar">
-            </form>
-        </fieldset><br><br>
+    <input type="submit" value="Adicionar">
+  </form>
+</fieldset><br><br>
 
 </body>
 </html>

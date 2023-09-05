@@ -1,5 +1,6 @@
 package br.edu.iff.bsi.deposito_de_produtos.controller.view;
 
+import br.edu.iff.bsi.deposito_de_produtos.model.Produto;
 import br.edu.iff.bsi.deposito_de_produtos.model.SetorDeposito;
 import br.edu.iff.bsi.deposito_de_produtos.service.SetorService;
 import jakarta.validation.Valid;
@@ -22,8 +23,10 @@ public class SetorController {
     @GetMapping
     public String Setor(Model model){
         SetorDeposito s = new SetorDeposito();
+        Produto p = new Produto();
         List<SetorDeposito> setores = service.findAllSetores();
         model.addAttribute("setor", s);
+        model.addAttribute("produto", p);
         model.addAttribute("descricao", setores);
         return "Setor";
     }
@@ -82,4 +85,12 @@ public class SetorController {
         return response;
     }
 
+    @PostMapping(path = "/addProduto")
+    @ResponseBody
+    public  Map<String, String> addProduto(@ModelAttribute SetorDeposito setor, @ModelAttribute Produto produto){
+        Map<String, String> response = new HashMap<>();
+        String s = service.addProdutos(setor.getId(), produto.getId());
+        response.put("message", (s != null) ? s : "Produto do id " + produto.getId() + " já existe no setor do id " + setor.getId() + " ou em outros setores");
+        return response;
+    }
 }

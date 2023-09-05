@@ -59,6 +59,12 @@
                   Listar Setores
                 </a>
               </li>
+              <li>
+                <a class="nav-link link-body-emphasis sub-item" id="addP" onclick="displayForms('#addP','.addProduto')">
+                  <i class="bi bi-search me-2"></i>
+                  Adicionar Produto
+                </a>
+              </li>
             </ul>
           </div>
       </li>
@@ -161,25 +167,23 @@
           <button class="btn btn-primary btn-post w-100 py-2 reloadButton">Buscar</button>
       </main>
 
+      <main class="form-signin w-100 m-auto addProduto">
+        <form th:action="@{/setor/addProduto}" th:with="setor=${setor}, produto=${produto}"  method="post">
+          <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">
+          <h1 class="h3 mb-3 fw-normal">Adicionar Produto</h1>
 
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingIdSetor" placeholder="name@example.com" name="id" th:field="*{setor.id}">
+            <label for="floatingIdSetor">Id Setor:</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingIdProduto" placeholder="name@example.com" name="id" th:field="*{produto.id}">
+            <label for="floatingIdProduto">Id Produto:</label>
+          </div>
 
-  <!--    <main class="form-signin w-100 m-auto">-->
-  <!--      <form th:action="@{/setor/deleteSetor}" th:with="setor=${setor}, produto=${produto}"  method="post">-->
-  <!--        <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">-->
-  <!--        <h1 class="h3 mb-3 fw-normal">Adicionar Produto</h1>-->
-
-  <!--        <div class="form-floating">-->
-  <!--          <input type="text" class="form-control" id="floatingIdSetor" placeholder="name@example.com" name="id" th:field="*{setor.id}">-->
-  <!--          <label for="floatingIdSetor">Id Setor:</label>-->
-  <!--        </div>-->
-  <!--        <div class="form-floating">-->
-  <!--          <input type="text" class="form-control" id="floatingIdProduto" placeholder="name@example.com" name="id" th:field="*{setor.id}">-->
-  <!--          <label for="floatingIdProduto">Id Produto:</label>-->
-  <!--        </div>-->
-
-  <!--        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>-->
-  <!--      </form>-->
-  <!--    </main>-->
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>
+        </form>
+      </main>
     </div>
   </main>
   <script th:src="@{js/bootstrap.bundle.js}"></script>
