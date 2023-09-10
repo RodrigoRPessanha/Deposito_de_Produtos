@@ -53,14 +53,20 @@ td{
     .aside{
         border-right: 1px var(--bs-border-style) var(--bs-border-color)!important;
     }
+    .alert, .alert-success{
+        background-color: var(--bs-secondary-bg)!important;
+    }
 }
 
 [data-bs-theme=light]{
     .form-signin{
-        background-color: var(--bs-emphasis-color);
+        background-color: transparent;
     }
     .aside, .aside-short{
         border-right: 1px var(--bs-border-style) var(--bs-border-color)!important;
+    }
+    .alert, .alert-success{
+        background-color: transparent!important;
     }
 }
 .setorSub{
@@ -79,6 +85,10 @@ td{
     display: none;
 }
 
+.addProduto, .removeProduto{
+    max-width: 380px;
+}
+
 #main-content{
     display: flex;
     flex-direction: column;
@@ -93,7 +103,6 @@ td{
 
 .alert, .alert-success{
     color: var(--bs-body-color)!important;
-    background-color: var(--bs-emphasis-color)!important;
     border-color: var(--bs-purple)!important;
     border-width: 4px;
 }

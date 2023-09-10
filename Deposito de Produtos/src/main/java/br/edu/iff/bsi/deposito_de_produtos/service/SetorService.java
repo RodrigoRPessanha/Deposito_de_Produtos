@@ -85,4 +85,9 @@ public class SetorService {
     public List<String> findProdutoBySetorId(Long idDeposito){
         return resSetor.findProdutoBySetorId(idDeposito);
     }
+
+    public SetorDeposito findSetorById(Long id){
+        Optional<SetorDeposito> s = resSetor.findById(id);
+        return s.orElse(null);
+    }
 }

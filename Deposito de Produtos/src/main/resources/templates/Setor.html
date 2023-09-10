@@ -36,7 +36,7 @@
           <div class="setorSub">
             <ul class="submenu">
               <li>
-                <a class="nav-link active sub-item" id="addS" aria-current="page" onclick="displayForms('#addS','.addSetor')">
+                <a class="nav-link link-body-emphasis sub-item" id="addS" aria-current="page" onclick="displayForms('#addS','.addSetor')">
                   <i class="bi bi-box-arrow-in-down me-2"></i>
                   Adicionar Setor
                 </a>
@@ -60,9 +60,15 @@
                 </a>
               </li>
               <li>
-                <a class="nav-link link-body-emphasis sub-item" id="addP" onclick="displayForms('#addP','.addProduto')">
-                  <i class="bi bi-search me-2"></i>
+                <a class="nav-link link-body-emphasis sub-item" id="addSP" onclick="displayForms('#addSP','.addProdutoS')">
+                  <i class="bi bi-box-arrow-in-down me-2"></i>
                   Adicionar Produto
+                </a>
+              </li>
+              <li>
+                <a class="nav-link link-body-emphasis sub-item" id="removeSP" onclick="displayForms('#removeSP','.removeProdutoS')">
+                  <i class="bi bi-trash3 me-2"></i>
+                  Remover Produto
                 </a>
               </li>
             </ul>
@@ -75,25 +81,25 @@
         <div class="produtoSub">
           <ul class="submenu">
             <li>
-              <a href="#" class="nav-link active sub-item" aria-current="page">
+              <a href="#" class="nav-link link-body-emphasis sub-item" id="addP" aria-current="page" onclick="displayForms('#addP','.addSetor')">
                 <i class="bi bi-box-arrow-in-down me-2"></i>
                 Adicionar Produto
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link link-body-emphasis sub-item">
+              <a href="#" class="nav-link link-body-emphasis sub-item" id="editP" onclick="displayForms('#editP','.removeSetor')">
                 <i class="bi bi-pencil me-2"></i>
                 Editar Produto
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link link-body-emphasis sub-item">
+              <a href="#" class="nav-link link-body-emphasis sub-item" id="removeP" onclick="displayForms('#removeP','.removeSetor')">
                 <i class="bi bi-trash3 me-2"></i>
                 Remover Produto
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link link-body-emphasis sub-item">
+              <a href="#" class="nav-link link-body-emphasis sub-item" id="listP" onclick="displayForms('#listP','.removeSetor')">
                 <i class="bi bi-search me-2"></i>
                 Listar Produtos
               </a>
@@ -109,7 +115,7 @@
     <div id="messageBox"></div>
     <div id="forms">
       <main class="form-signin w-100 m-auto addSetor" >
-        <form id="setorForm" th:action="@{/setor/addSetor}" th:object="${setor}" method="post">
+        <form id="addSetorForm" th:action="@{/setor/addSetor}" th:object="${setor}" method="post">
           <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
           <h1 class="h3 mb-3 fw-normal">Cadastrar Setor</h1>
 
@@ -123,7 +129,7 @@
       </main>
 
       <main class="form-signin w-100 m-auto editSetor">
-        <form th:action="@{/setor/updateSetor}" th:object="${setor}" method="post">
+        <form id="editSetorForm" th:action="@{/setor/updateSetor}" th:object="${setor}" method="post">
           <i class="bi bi-pencil mb-4 icons"></i>
           <h1 class="h3 mb-3 fw-normal">Editar Setor</h1>
 
@@ -141,16 +147,13 @@
       </main>
 
       <main class="form-signin w-100 m-auto removeSetor">
-        <form th:action="@{/setor/deleteSetor}" th:object="${setor}" method="post">
+        <form id="removeSetorForm" th:action="@{/setor/deleteSetor}" th:object="${setor}" method="post">
           <i class="bi bi-trash3 mb-4 icons"></i>
           <h1 class="h3 mb-3 fw-normal">Deletar Setor</h1>
-
-
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingIdDelete" placeholder="name@example.com" name="id" th:field="*{id}" required>
+            <input type="number" class="form-control" id="floatingIdDelete" placeholder="name@example.com" name="id" th:field="*{id}" required>
             <label for="floatingIdDelete">Id:</label>
           </div>
-
           <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
         </form>
       </main>
@@ -167,23 +170,44 @@
           <button class="btn btn-primary btn-post w-100 py-2 reloadButton">Buscar</button>
       </main>
 
-      <main class="form-signin w-100 m-auto addProduto">
+      <main class="form-signin w-100 m-auto addProdutoS">
         <form th:action="@{/setor/addProduto}" th:with="setor=${setor}, produto=${produto}"  method="post">
-          <img class="mb-4" th:src="@{images/bootstrap-logo.svg}" alt="" width="72" height="57">
-          <h1 class="h3 mb-3 fw-normal">Adicionar Produto</h1>
+          <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Adicionar Produto ao Setor</h1>
 
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingIdSetor" placeholder="name@example.com" name="id" th:field="*{setor.id}">
-            <label for="floatingIdSetor">Id Setor:</label>
+            <input type="number" class="form-control" id="floatingIdSetorAdd" placeholder="name@example.com" name="id" th:field="*{setor.id}">
+            <label for="floatingIdSetorAdd">Id Setor:</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingIdProduto" placeholder="name@example.com" name="id" th:field="*{produto.id}">
-            <label for="floatingIdProduto">Id Produto:</label>
+            <input type="number" class="form-control" id="floatingIdProdutoAdd" placeholder="name@example.com" name="id" th:field="*{produto.id}">
+            <label for="floatingIdProdutoAdd">Id Produto:</label>
           </div>
 
           <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>
         </form>
       </main>
+
+      <main class="form-signin w-100 m-auto removeProdutoS">
+        <form th:action="@{/setor/addProduto}" th:with="setor=${setor}, produto=${produto}"  method="post">
+          <i class="bi bi-trash3 mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Remover Produto do Setor</h1>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdSetorRemove" placeholder="name@example.com" name="id" th:field="*{setor.id}">
+            <label for="floatingIdSetorRemove">Id Setor:</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdProdutoRemove" placeholder="name@example.com" name="id" th:field="*{produto.id}">
+            <label for="floatingIdProdutoRemove">Id Produto:</label>
+          </div>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>
+        </form>
+      </main>
+
+
+
     </div>
   </main>
   <script th:src="@{js/bootstrap.bundle.js}"></script>

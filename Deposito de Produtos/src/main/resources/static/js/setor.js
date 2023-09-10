@@ -38,31 +38,39 @@ document.querySelector('.reloadButton').addEventListener('click', function(){
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    var setorForm = document.getElementById('setorForm');
-    var messageBox = document.getElementById('messageBox');
+    function handleFormSubmit(formId, url) {
+        var setorForm = document.getElementById(formId);
+        var messageBox = document.getElementById('messageBox');
 
-    setorForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        var formData = new FormData(setorForm);
+        setorForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            var formData = new FormData(setorForm);
 
-        fetch('/setor/addSetor', {
-            method: 'POST',
-            body: formData,
-        })
-            .then(function (response) {
-                return response.json();
+            fetch(url, {
+                method: 'POST',
+                body: formData,
             })
-            .then(function (data) {
-                if (data.error) {
-                    // Exibe um alerta de erro
-                    alert(data.error);
-                } else {
-                    // Exibe a mensagem na página
-                    messageBox.innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
-                }
-            })
-            .catch(function (error) {
-                alert('Ocorreu um erro na requisição fetch.');
-            });
-    });
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data.error) {
+                        // Exibe um alerta de erro
+                        alert(data.error);
+                    } else {
+                        // Exibe a mensagem na página
+                        messageBox.innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
+                    }
+                })
+                .catch(function (error) {
+                    alert('Ocorreu um erro na requisição fetch.');
+                });
+        });
+    }
+
+    // Chame a função para cada formulário que você deseja que funcione
+    handleFormSubmit('addSetorForm', '/setor/addSetor');
+    handleFormSubmit('editSetorForm', '/setor/updateSetor');
+    handleFormSubmit('removeSetorForm', '/setor/deleteSetor');
 });
+
