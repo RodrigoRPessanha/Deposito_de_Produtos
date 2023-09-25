@@ -20,17 +20,6 @@ public class SetorController {
     @Autowired
     private SetorService service;
 
-    @GetMapping
-    public String Setor(Model model){
-        SetorDeposito s = new SetorDeposito();
-        Produto p = new Produto();
-        List<SetorDeposito> setores = service.findAllSetores();
-        model.addAttribute("setor", s);
-        model.addAttribute("produto", p);
-        model.addAttribute("descricao", setores);
-        return "Setor";
-    }
-
     @PostMapping("/addSetor")
     @ResponseBody
     public Map<String, String> addSetor(@Valid @ModelAttribute SetorDeposito setor, BindingResult result) {
