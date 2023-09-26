@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,23 +29,6 @@ public class FuncionarioService {
             return "Funcionario " + resFunc.save(funcionario).getNome() + " adicionado";
         }
     }
-    public Funcionario updateFuncionario(@ModelAttribute Funcionario funcionario){
-        Funcionario funcionarioNovo;
-        Optional<Funcionario> p = resFunc.findById(funcionario.getId());
-        if (p.isPresent()){
-            funcionarioNovo = p.get();
-            funcionarioNovo.setNome(funcionario.getNome());
-            funcionarioNovo.setCpf(funcionario.getCpf());
-            funcionarioNovo.setEmail(funcionario.getEmail());
-            funcionarioNovo.setEndereco(funcionario.getEndereco());
-            funcionarioNovo.setFuncao(funcionario.getFuncao());
-            funcionarioNovo.setTelefone(funcionario.getTelefone());
-            funcionarioNovo = resFunc.save(funcionarioNovo);
-        }else{
-            funcionarioNovo = null;
-        }
-        return funcionarioNovo;
-    }
     public Funcionario updateFuncionario(Long id, @ModelAttribute Funcionario funcionario){
         Funcionario funcionarioNovo;
         Optional<Funcionario> p = resFunc.findById(id);
@@ -65,42 +47,10 @@ public class FuncionarioService {
         return funcionarioNovo;
     }
 
-    public void deletarFuncionario(String cpf){
-        resFunc.deleteById(resFunc.findByCPF(cpf));
-    }
     public void deletarFuncionario(Long id){
         resFunc.deleteById(id);
     }
 
-
-    public String addTelefone(Long id, String tel){
-        Funcionario funcionario = resFunc.findById(id).get();
-        Collection<String> funcionarios = funcionario.getTelefone();
-        try{
-            if(funcionarios.contains(tel.trim())){
-                return null;
-            }
-            funcionario.addTelefone(tel.trim());
-            resFunc.flush();
-            return "Telefone adicionado!";
-        }catch (Exception e){
-            return null;
-        }
-    }
-    public String removerTelefone(Long id, String tel){
-        Funcionario funcionario = resFunc.findById(id).get();
-        Collection<String> funcionarios = funcionario.getTelefone();
-        try{
-            if(!funcionarios.contains(tel.trim())){
-                return null;
-            }
-            funcionario.removeTelefone(tel.trim());
-            resFunc.flush();
-            return "Telefone removido!";
-        }catch (Exception e){
-            return null;
-        }
-    }
     public String setarEndereco(Long id, Long enderecoId) {
         Funcionario funcionario = resFunc.findById(id).get();
         Endereco endereco = funcionario.getEndereco();
@@ -161,6 +111,12 @@ public class FuncionarioService {
     public List<Funcionario> findAllFuncionarios(){
         return resFunc.findAll();
     }
+
+    public Funcionario findFuncionarioById(Long id){
+        Optional<Funcionario> f = resFunc.findById(id);
+        return f.orElse(null);
+    }
+
 
     public List<String> findTelFromFunc(Long id){
         return resFunc.findTelFromFunc(id);

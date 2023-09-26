@@ -4,10 +4,12 @@ import br.edu.iff.bsi.deposito_de_produtos.model.Produto;
 import br.edu.iff.bsi.deposito_de_produtos.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(path = "/produto")
@@ -16,19 +18,27 @@ public class ProdutoController {
     private ProdutoService service;
     @PostMapping("/addProduto")
     @ResponseBody
-    public String addProduto(@ModelAttribute Produto produto){
-        String p = service.addProduto(produto);
-        return (p != null) ? p : "Produto " + produto.getDescricao() + " já existe";
+    public Map<String, String> addProduto(@ModelAttribute Produto produto, BindingResult result) {
+        Map<String, String> response = new HashMap<>();
+        if (result.hasErrors()) {
+            response.put("error", "Algum dos campos obrigatórios está vazio");
+        } else {
+            String p = service.addProduto(produto);
+            response.put("message", (p != null) ? p : "Produto " + produto.getDescricao() + " já existe");
+        }
+        return response;
     }
     @PostMapping("/updateProduto")
     @ResponseBody
-    public String updateProduto(String descricaoAtual, String codigodeBarrasAtual, String descricaoNova, String codigoDeBarrasNovo, int quantidadeNova, BigDecimal precoCustoNovo){
+    public Map<String, String> updateProduto(Long id, @ModelAttribute Produto produto){
+        Map<String, String> response = new HashMap<>();
         try{
-            Produto p = service.updateProduto(descricaoAtual.trim(),codigodeBarrasAtual.trim(), descricaoNova.trim(), codigoDeBarrasNovo.trim(), quantidadeNova, precoCustoNovo);
-            return (p.getDescricao() == descricaoNova.trim()) ? "O produto foi atualizado com sucesso!" : "O produto não foi atualizado com sucesso!";
+            Produto p = service.updateProduto(id, produto);
+            response.put("message", (p.getDescricao().equals(produto.getDescricao().trim())) ? "O produto foi atualizado com sucesso!" : "O produto não foi atualizado com sucesso!");
         } catch(Exception e){
-            return "Não existe produto com a descricao ou codigo de barras atual!";
+            response.put("error", "Não existe produto com a descricao ou codigo de barras atual!");
         }
+        return response;
     }
     @GetMapping("/getAllProdutos")
     @ResponseBody
@@ -37,8 +47,12 @@ public class ProdutoController {
     }
     @PostMapping("/deleteProduto")
     @ResponseBody
-    public String deletarProduto(String descricao, String codigoDeBarras){
-        service.deletarProduto(descricao.trim(), codigoDeBarras.trim());
-        return "Produto "+ descricao.trim() +" deletado!";
+    public Map<String, String> deletarProduto(Long id){
+        Map<String, String> response = new HashMap<>();
+        Produto p = service.findProdutoById(id);
+        String mensagem = (p == null) ? "Produto não encontrado": "Produto "+ id +" deletado!";
+        service.deletarProduto(id);
+        response.put("message", mensagem);
+        return response;
     }
 }

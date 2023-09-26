@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Entity
 public class Funcionario implements Serializable {
@@ -28,9 +26,9 @@ public class Funcionario implements Serializable {
     @NotBlank(message = "Email obrigatório.")
     @Column(nullable = false)
     private String email;
-    @ElementCollection
+    @NotBlank(message = "Telefone obrigatório.")
     @Column(nullable = false)
-    private Collection<String> telefone = new ArrayList<String>();
+    private String telefone;
     @OneToOne
     @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = true)
     private Endereco endereco;
@@ -86,19 +84,12 @@ public class Funcionario implements Serializable {
         this.endereco = endereco;
     }
 
-    public Collection<String> getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void addTelefone(String telefone) {
-        this.telefone.add(telefone.trim());
-    }
-    public void setTelefone(Collection<String> telefones) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public void removeTelefone(String telefone) {
-        this.telefone.remove(telefone);
     }
 
     public SetorDeposito getSetor() {

@@ -6,7 +6,6 @@ import br.edu.iff.bsi.deposito_de_produtos.service.SetorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,21 +36,20 @@ public class SetorController {
 
     @PostMapping("/updateSetor")
     @ResponseBody
-    public Map<String, String> updateSetor(@Valid @ModelAttribute SetorDeposito setor){
+    public Map<String, String> updateSetor(Long id, @Valid @ModelAttribute SetorDeposito setor){
         Map<String, String> response = new HashMap<>();
         try{
-            SetorDeposito s = service.updateSetor(setor.getId(), setor.getDescricao());
+            SetorDeposito s = service.updateSetor(id, setor.getDescricao());
             response.put("message", (s.getDescricao() == setor.getDescricao()) ? "O setor foi atualizado com sucesso!" : "O setor não foi atualizado com sucesso!");
-            return response;
         } catch(Exception e){
             response.put("error", "Descrição Obrigatória");
-            return response;
         }
+        return response;
     }
 
     @GetMapping("/getAllSetores")
     @ResponseBody
-    public List<SetorDeposito> findAllSetores(Model model){
+    public List<SetorDeposito> findAllSetores(){
         return service.findAllSetores();
     }
 

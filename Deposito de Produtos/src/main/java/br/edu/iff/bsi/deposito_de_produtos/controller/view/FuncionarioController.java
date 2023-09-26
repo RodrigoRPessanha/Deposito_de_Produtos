@@ -30,10 +30,10 @@ public class FuncionarioController {
 
     @PostMapping("/updateFuncionario")
     @ResponseBody
-    public String updateFuncionario(@ModelAttribute Funcionario funcionario){
+    public String updateFuncionario(Long id, @ModelAttribute Funcionario funcionario){
         try{
-            Funcionario e = service.updateFuncionario(funcionario);
-            return (e.getCpf() == funcionario.getCpf()) ? "O funcionário foi atualizado com sucesso!" : "O funcionário não foi atualizado com sucesso!";
+            Funcionario f = service.updateFuncionario(id, funcionario);
+            return (f.getId() == funcionario.getId()) ? "O funcionário foi atualizado com sucesso!" : "O funcionário não foi atualizado com sucesso!";
         } catch(Exception e){
             return "Não existe funcionário com as informações fornecidas!";
         }
@@ -41,9 +41,9 @@ public class FuncionarioController {
 
     @PostMapping("/deleteFuncionario")
     @ResponseBody
-    public String deletarFuncionario(String cpf){
-        service.deletarFuncionario(cpf.trim());
-        return "Funcionario do cpf " + cpf + " deletado!";
+    public String deletarFuncionario(Long id){
+        service.deletarFuncionario(id);
+        return "Funcionario do id " + id + " deletado!";
     }
 
     @GetMapping("/getAllFuncionarios")

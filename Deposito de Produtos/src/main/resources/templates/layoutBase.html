@@ -175,6 +175,175 @@
       </ul>
     </div>
 
+    <aside class="d-flex flex-nowrap aside" th:fragment="aside">
+      <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <span class="fs-4">Deposito de Produtos</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item border-bottom" >
+            <a href="#" class="nav-link active setorMenu" aria-current="page" onclick="toggleMenuAside('.setorSub')" aria-expanded="false">
+              Setor
+            </a>
+            <div class="setorSub sub">
+              <ul class="submenu">
+                <li>
+                  <a class="nav-link link-body-emphasis sub-item" id="addS" aria-current="page" onclick="displayForms('#addS','.addSetor')">
+                    <i class="bi bi-box-arrow-in-down me-2"></i>
+                    Adicionar Setor
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link link-body-emphasis sub-item" id="editS" onclick="displayForms('#editS','.editSetor')">
+                    <i class="bi bi-pencil me-2"></i>
+                    Editar Setor
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link link-body-emphasis sub-item" id="removeS" onclick="displayForms('#removeS','.removeSetor')">
+                    <i class="bi bi-trash3 me-2"></i>
+                    Remover Setor
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link link-body-emphasis sub-item" id="listS" onclick="displayForms('#listS','.listSetor')">
+                    <i class="bi bi-search me-2"></i>
+                    Listar Setores
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link link-body-emphasis sub-item" id="addSP" onclick="displayForms('#addSP','.addProdutoS')">
+                    <i class="bi bi-box-arrow-in-down me-2"></i>
+                    Adicionar Produto
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link link-body-emphasis sub-item" id="removeSP" onclick="displayForms('#removeSP','.removeProdutoS')">
+                    <i class="bi bi-trash3 me-2"></i>
+                    Remover Produto
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item border-bottom">
+            <a href="#" class="nav-link active produtoMenu" aria-current="page" onclick="toggleMenuAside('.produtoSub')" aria-expanded="false">
+              Produto
+            </a>
+            <div class="produtoSub sub">
+              <ul class="submenu">
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="addP" aria-current="page" onclick="displayForms('#addP','.addProduto')">
+                    <i class="bi bi-box-arrow-in-down me-2"></i>
+                    Adicionar Produto
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="editP" onclick="displayForms('#editP','.editProduto')">
+                    <i class="bi bi-pencil me-2"></i>
+                    Editar Produto
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="removeP" onclick="displayForms('#removeP','.removeProduto')">
+                    <i class="bi bi-trash3 me-2"></i>
+                    Remover Produto
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="listP" onclick="displayForms('#listP','.listProduto')">
+                    <i class="bi bi-search me-2"></i>
+                    Listar Produtos
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item border-bottom">
+            <a href="#" class="nav-link active funcionarioMenu" aria-current="page" onclick="toggleMenuAside('.funcionarioSub')" aria-expanded="false">
+              Funcionario
+            </a>
+            <div class="funcionarioSub sub">
+              <ul class="submenu">
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="addF" aria-current="page" onclick="displayForms('#addF','.addFuncionario')">
+                    <i class="bi bi-box-arrow-in-down me-2"></i>
+                    Adicionar Funcionario
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="editF" onclick="displayForms('#editF','.editFuncionario')">
+                    <i class="bi bi-pencil me-2"></i>
+                    Editar Funcionario
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="removeF" onclick="displayForms('#removeF','.removeFuncionario')">
+                    <i class="bi bi-trash3 me-2"></i>
+                    Remover Funcionario
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="listF" onclick="displayForms('#listF','.listFuncionario')">
+                    <i class="bi bi-search me-2"></i>
+                    Listar Funcionarios
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item border-bottom">
+            <a href="#" class="nav-link active depositoMenu" aria-current="page" onclick="toggleMenuAside('.depositoSub')" aria-expanded="false">
+              Deposito
+            </a>
+            <div class="depositoSub sub">
+              <ul class="submenu">
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="addD" aria-current="page" onclick="displayForms('#addD','.addDeposito')">
+                    <i class="bi bi-box-arrow-in-down me-2"></i>
+                    Adicionar Deposito
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="editD" onclick="displayForms('#editD','.editDeposito')">
+                    <i class="bi bi-pencil me-2"></i>
+                    Editar Deposito
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="removeD" onclick="displayForms('#removeD','.removeDeposito')">
+                    <i class="bi bi-trash3 me-2"></i>
+                    Remover Deposito
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-body-emphasis sub-item" id="listD" onclick="displayForms('#listD','.listDeposito')">
+                    <i class="bi bi-search me-2"></i>
+                    Listar Depositos
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+            <img src="https://github.com/mdo.png" alt="" width="42" height="42" class="rounded-circle me-2">
+            <strong style="font-size: 18px">Nome do Usuário</strong>
+          </a>
+          <ul class="dropdown-menu text-small shadow">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </aside>
 
     <script th:src="@{js/bootstrap.bundle.js}"></script>
     <script th:src="@{js/sidebars.js}"></script>

@@ -35,20 +35,7 @@ public class FuncionarioRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe funcionário com as informações fornecidas!");
         }
     }
-    @PutMapping("/{id}/telefones")
-    @ResponseBody
-    public ResponseEntity<String> addTelefone(@PathVariable("id") Long id, @RequestBody String telefone){
-        String s = service.addTelefone(id, telefone);
-        return (s != null) ? ResponseEntity.status(HttpStatus.OK).body(s)
-                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Telefone: " + telefone + " já está cadastrado no funcionário");
-    }
-    @DeleteMapping("/{id}/telefones")
-    @ResponseBody
-    public ResponseEntity<String> removerTelefone(@PathVariable("id") Long id, @RequestBody String telefone){
-        String s = service.removerTelefone(id, telefone);
-        return (s != null) ? ResponseEntity.status(HttpStatus.OK).body(s)
-                           : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Telefone: " + telefone + " não existe no funcionário");
-    }@PutMapping("/{id}/endereco")
+    @PutMapping("/{id}/endereco")
     @ResponseBody
     public ResponseEntity<String> addEndereco(@PathVariable("id") Long id, @RequestBody Endereco endereco){
         Long enderecoId = endereco.getId();
