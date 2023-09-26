@@ -18,350 +18,365 @@
 
 </head>
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
-<svg th:replace="~{layoutBase :: xmlnsSVG}"></svg>
+  <svg th:replace="~{layoutBase :: xmlnsSVG}"></svg>
+  <div th:replace="~{layoutBase :: dropdownTheme}"></div>
+  <aside th:replace="~{layoutBase :: aside}"></aside>
 
-<div th:replace="~{layoutBase :: dropdownTheme}"></div>
-<aside th:replace="~{layoutBase :: aside}"></aside>
+  <main id="main-content">
+    <div id="messageBox"></div>
+    <div id="forms">
+      <main class="form-signin w-100 m-auto addSetor" >
+        <form id="addSetorForm" th:action="@{/setor/addSetor}" th:object="${setor}" method="post">
+          <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Cadastrar Setor</h1>
 
-<main id="main-content">
-  <div id="messageBox"></div>
-  <div id="forms">
-    <main class="form-signin w-100 m-auto addSetor" >
-      <form id="addSetorForm" th:action="@{/setor/addSetor}" th:object="${setor}" method="post">
-        <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Cadastrar Setor</h1>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingDescricaoPost" name="descricao" th:field="*{descricao}" required>
+            <label for="floatingDescricaoPost">Descrição</label>
+          </div>
 
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingDescricaoPost" name="descricao" th:field="*{descricao}" required>
-          <label for="floatingDescricaoPost">Descrição</label>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto editSetor">
+        <form id="editSetorForm" th:action="@{/setor/updateSetor}" th:object="${setor}" method="post">
+          <i class="bi bi-pencil mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Editar Setor</h1>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdEdit" name="id" th:field="*{id}" required>
+            <label for="floatingIdEdit">Id:</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingDescricaoEdit" name="descricao" th:field="*{descricao}" required>
+            <label for="floatingDescricaoEdit">Descrição</label>
+          </div>
+
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto removeSetor">
+        <form id="removeSetorForm" th:action="@{/setor/deleteSetor}" th:object="${setor}" method="post">
+          <i class="bi bi-trash3 mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Deletar Setor</h1>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdDelete" name="id" th:field="*{id}" required>
+            <label for="floatingIdDelete">Id</label>
+          </div>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto listSetor">
+        <i class="bi bi-search mb-4 icons"></i>
+        <h1 class="h3 mb-3 fw-normal">Setores Cadastrados</h1>
+        <table id="dadosSetor">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        <p id="mensagemSemDadosS" style="display: none;">Sem dados para exibir.</p>
+        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/setor/getAllSetores','dadosSetor')">Buscar</button>
+      </main>
+      <main class="form-signin w-100 m-auto addProdutoS">
+        <form id="addProdutoSetorForm" th:action="@{/setor/addProduto}" method="post">
+          <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Adicionar Produto ao Setor</h1>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdSetorAdd" name="idSetor">
+            <label for="floatingIdSetorAdd">Id Setor:</label>
+          </div>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdProdutoAdd" name="idProduto">
+            <label for="floatingIdProdutoAdd">Id Produto:</label>
+          </div>
+
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto removeProdutoS">
+        <form id="removeProdutoSetorForm" th:action="@{/setor/deleteroduto}" method="post">
+          <i class="bi bi-trash3 mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Remover Produto do Setor</h1>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdSetorRemove" name="idSetorR">
+            <label for="floatingIdSetorRemove">Id Setor:</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdProdutoRemove" name="idProdutoR">
+            <label for="floatingIdProdutoRemove">Id Produto:</label>
+          </div>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Remover</button>
+        </form>
+      </main>
+
+      <main class="form-signin w-100 m-auto addProduto" >
+        <form id="addProdutoForm" th:action="@{/produto/addProduto}" th:object="${produto}" method="post">
+          <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Cadastrar Produto</h1>
+
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingDescricaoPostP" name="descricao" th:field="*{descricao}" required>
+            <label for="floatingDescricaoPostP">Descrição</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingCodigoBarrasPostP" name="codigoDeBarras" th:field="*{codigoDeBarras}" required>
+            <label for="floatingCodigoBarrasPostP">Codigo De Barras</label>
+          </div>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingQuantidadePostP" name="quantidade" th:field="*{quantidade}" required>
+            <label for="floatingQuantidadePostP">Quantidade</label>
+          </div
+          ><div class="form-floating">
+            <input type="number" step="0.01" class="form-control" id="floatingPrecoPostP" name="precoCusto" th:field="*{precoCusto}" required>
+            <label for="floatingPrecoPostP">Preco de Custo</label>
+          </div>
+
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto editProduto">
+        <form id="editProdutoForm" th:action="@{/produto/updateProduto}" th:object="${produto}" method="post">
+          <i class="bi bi-pencil mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Editar Produto</h1>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdEditP" name="id" th:field="*{id}" required>
+            <label for="floatingIdEditP">Id:</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingDescricaoEditP" name="descricao" th:field="*{descricao}" required>
+            <label for="floatingDescricaoEditP">Descrição</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingCodigoBarrasEditP" name="codigoDeBarras" th:field="*{codigoDeBarras}" required>
+            <label for="floatingCodigoBarrasEditP">Codigo De Barras</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingQuantidadeEditP" name="quantidade" th:field="*{quantidade}" required>
+            <label for="floatingQuantidadeEditP">Quantidade</label>
+          </div
+          ><div class="form-floating">
+          <input type="text" class="form-control" id="floatingPrecoEditP" name="precoCusto" th:field="*{precoCusto}" required>
+          <label for="floatingPrecoEditP">Preco de Custo</label>
         </div>
 
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
-      </form>
-    </main>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto removeProduto">
+        <form id="removeProdutoForm" th:action="@{/produto/deleteProduto}" th:object="${produto}" method="post">
+          <i class="bi bi-trash3 mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Deletar Produto</h1>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdDeleteP" name="id" th:field="*{id}" required>
+            <label for="floatingIdDeleteP">Id</label>
+          </div>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto listProduto">
+        <i class="bi bi-search mb-4 icons"></i>
+        <h1 class="h3 mb-3 fw-normal">Produtos Cadastrados</h1>
+        <table id="dadosProduto">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        <p id="mensagemSemDadosP" style="display: none;">Sem dados para exibir.</p>
+        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/produto/getAllProdutos','dadosProduto')">Buscar</button>
+      </main>
 
-    <main class="form-signin w-100 m-auto editSetor">
-      <form id="editSetorForm" th:action="@{/setor/updateSetor}" th:object="${setor}" method="post">
-        <i class="bi bi-pencil mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Editar Setor</h1>
+      <main class="form-signin w-100 m-auto addFuncionario" >
+        <form id="addFuncionarioForm" th:action="@{/funcionario/addFuncionario}" th:object="${funcionario}" method="post">
+          <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Cadastrar Funcionario</h1>
 
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdEdit" name="id" th:field="*{id}" required>
-          <label for="floatingIdEdit">Id:</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingDescricaoEdit" name="descricao" th:field="*{descricao}" required>
-          <label for="floatingDescricaoEdit">Descrição</label>
-        </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingNomePostF" name="nome" th:field="*{nome}" required>
+            <label for="floatingNomePostF">Nome</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingCPFPostF" name="cpf" th:field="*{cpf}" required>
+            <label for="floatingCPFPostF">CPF</label>
+          </div>
+          <div class="form-floating">
+            <select type="text" class="form-control" id="floatingFuncaoPostF" name="funcao" th:field="*{funcao}" required>
+              <option value=1>GERENTE DE DEPOSITO</option>
+              <option value=2>ASSOCIADO DE DEPOSITO</option>
+              <option value=3>SUPERVISOR DE DEPOSITO</option>
+              <option value=4>OPERARIO DE DEPOSITO</option>
+            </select>
+            <label for="floatingFuncaoPostF">Função</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingEmailPostF" name="email" th:field="*{email}" required>
+            <label for="floatingEmailPostF">Email</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingTelefonePostF" name="telefone" th:field="*{telefone}" required>
+            <label for="floatingTelefonePostF">Telefone</label>
+          </div>
 
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
-      </form>
-    </main>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto editFuncionario">
+        <form id="editFuncionarioForm" th:action="@{/funcionario/updateFuncionario}" th:object="${funcionario}" method="post">
+          <i class="bi bi-pencil mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Editar Funcionario</h1>
 
-    <main class="form-signin w-100 m-auto removeSetor">
-      <form id="removeSetorForm" th:action="@{/setor/deleteSetor}" th:object="${setor}" method="post">
-        <i class="bi bi-trash3 mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Deletar Setor</h1>
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdDelete" name="id" th:field="*{id}" required>
-          <label for="floatingIdDelete">Id</label>
-        </div>
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
-      </form>
-    </main>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdEditF" name="id" th:field="*{id}" required>
+            <label for="floatingIdEditF">Id</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingNomeEditF" name="nome" th:field="*{nome}" required>
+            <label for="floatingNomeEditF">Nome</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingCPFEditF" name="cpf" th:field="*{cpf}" required>
+            <label for="floatingCPFEditF">CPF</label>
+          </div>
+          <div class="form-floating">
+            <select type="text" class="form-control" id="floatingFuncaoEditF" name="funcao" th:field="*{funcao}" required>
+              <option value=1>GERENTE DE DEPOSITO</option>
+              <option value=2>ASSOCIADO DE DEPOSITO</option>
+              <option value=3>SUPERVISOR DE DEPOSITO</option>
+              <option value=4>OPERARIO DE DEPOSITO</option>
+            </select>
+            <label for="floatingFuncaoEditF">Função</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingEmailEditF" name="email" th:field="*{email}" required>
+            <label for="floatingEmailEditF">Email</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingTelefoneEditF" name="telefone" th:field="*{telefone}" required>
+            <label for="floatingTelefoneEditF">Telefone</label>
+          </div>
 
-    <main class="form-signin w-100 m-auto listSetor">
-      <i class="bi bi-search mb-4 icons"></i>
-      <h1 class="h3 mb-3 fw-normal">Setores Cadastrados</h1>
-      <table id="dadosSetor">
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      <p id="mensagemSemDadosS" style="display: none;">Sem dados para exibir.</p>
-      <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/setor/getAllSetores','dadosSetor')">Buscar</button>
-    </main>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto removeFuncionario">
+        <form id="removeFuncionarioForm" th:action="@{/funcionario/deleteFuncionario}" th:object="${funcionario}" method="post">
+          <i class="bi bi-trash3 mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Deletar Funcionario</h1>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdDeleteF" name="id" th:field="*{id}" required>
+            <label for="floatingIdDeleteF">Id:</label>
+          </div>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto listFuncionario">
+        <i class="bi bi-search mb-4 icons"></i>
+        <h1 class="h3 mb-3 fw-normal">Funcionarios Cadastrados</h1>
+        <table id="dadosFuncionario">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        <p id="mensagemSemDadosF" style="display: none;">Sem dados para exibir.</p>
+        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/funcionario/getAllFuncionarios','dadosFuncionario')">Buscar</button>
+      </main>
 
-    <main class="form-signin w-100 m-auto addProdutoS">
-      <form id="addProdutoSetorForm" th:action="@{/setor/addProduto}" th:with="setor=${setor}, produto=${produto}"  method="post">
-        <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Adicionar Produto ao Setor</h1>
+      <main class="form-signin w-100 m-auto addDeposito" >
+        <form id="addDepositoForm" th:action="@{/deposito/addDeposito}" th:object="${deposito}" method="post">
+          <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Cadastrar Deposito</h1>
 
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdSetorAdd" name="id" th:field="*{setor.id}">
-          <label for="floatingIdSetorAdd">Id Setor:</label>
-        </div>
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdProdutoAdd" name="id" th:field="*{produto.id}">
-          <label for="floatingIdProdutoAdd">Id Produto:</label>
-        </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingDescricaoPostD" name="descricao" th:field="*{descricao}" required>
+            <label for="floatingDescricaoPostD">Descrição</label>
+          </div>
 
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>
-      </form>
-    </main>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto editDeposito">
+        <form id="editDepositoForm" th:action="@{/deposito/updateDeposito}" th:object="${deposito}" method="post">
+          <i class="bi bi-pencil mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Editar Deposito</h1>
 
-    <main class="form-signin w-100 m-auto removeProdutoS">
-      <form id="removeProdutoSetorForm" th:action="@{/setor/addProduto}" th:with="setor=${setor}, produto=${produto}"  method="post">
-        <i class="bi bi-trash3 mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Remover Produto do Setor</h1>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdEditD" name="id" th:field="*{id}" required>
+            <label for="floatingIdEditD">Id:</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingDescricaoEditD" name="descricao" th:field="*{descricao}" required>
+            <label for="floatingDescricaoEditD">Descrição</label>
+          </div>
 
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdSetorRemove" name="id" th:field="*{setor.id}">
-          <label for="floatingIdSetorRemove">Id Setor:</label>
-        </div>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto removeDeposito">
+        <form id="removeDepositoForm" th:action="@{/deposito/deleteDeposito}" th:object="${deposito}" method="post">
+          <i class="bi bi-trash3 mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Deletar Deposito</h1>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdDeleteD" name="id" th:field="*{id}" required>
+            <label for="floatingIdDeleteD">Id</label>
+          </div>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto listDeposito">
+        <i class="bi bi-search mb-4 icons"></i>
+        <h1 class="h3 mb-3 fw-normal">Depositos Cadastrados</h1>
+        <table id="dadosDeposito">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        <p id="mensagemSemDadosD" style="display: none;">Sem dados para exibir.</p>
+        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/deposito/getAllDepositos','dadosDeposito')">Buscar</button>
+      </main>
+      <main class="form-signin w-100 m-auto addSetorD">
+        <form id="addSetorDepositoForm" th:action="@{/deposito/addSetor}" method="post">
+          <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Adicionar Setor ao depósito</h1>
 
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdProdutoRemove" name="id" th:field="*{produto.id}">
-          <label for="floatingIdProdutoRemove">Id Produto:</label>
-        </div>
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>
-      </form>
-    </main>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdDepositoAdd" name="idDeposito">
+            <label for="floatingIdDepositoAdd">Id Deposito:</label>
+          </div>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdSetorAddD" name="idSetor">
+            <label for="floatingIdSetorAddD">Id Setor:</label>
+          </div>
 
-    
-    <main class="form-signin w-100 m-auto addProduto" >
-      <form id="addProdutoForm" th:action="@{/produto/addProduto}" th:object="${produto}" method="post">
-        <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Cadastrar Produto</h1>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto removeSetorD">
+        <form id="removeSetorDepositoForm" th:action="@{/deposito/deleteSetor}" method="post">
+          <i class="bi bi-trash3 mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Remover Setor do depósito</h1>
 
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingDescricaoPostP" name="descricao" th:field="*{descricao}" required>
-          <label for="floatingDescricaoPostP">Descrição</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingCodigoBarrasPostP" name="codigoDeBarras" th:field="*{codigoDeBarras}" required>
-          <label for="floatingCodigoBarrasPostP">Codigo De Barras</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingQuantidadePostP" name="quantidade" th:field="*{quantidade}" required>
-          <label for="floatingQuantidadePostP">Quantidade</label>
-        </div
-        ><div class="form-floating">
-          <input type="text" class="form-control" id="floatingPrecoPostP" name="precoCusto" th:field="*{precoCusto}" required>
-          <label for="floatingPrecoPostP">Preco de Custo</label>
-        </div>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdDepositoRemove" name="idDeposito">
+            <label for="floatingIdDepositoRemove">Id Deposito:</label>
+          </div>
 
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto editProduto">
-      <form id="editProdutoForm" th:action="@{/produto/updateProduto}" th:object="${produto}" method="post">
-        <i class="bi bi-pencil mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Editar Produto</h1>
-
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdEditP" name="id" th:field="*{id}" required>
-          <label for="floatingIdEditP">Id:</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingDescricaoEditP" name="descricao" th:field="*{descricao}" required>
-          <label for="floatingDescricaoEditP">Descrição</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingCodigoBarrasEditP" name="codigoDeBarras" th:field="*{codigoDeBarras}" required>
-          <label for="floatingCodigoBarrasEditP">Codigo De Barras</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingQuantidadeEditP" name="quantidade" th:field="*{quantidade}" required>
-          <label for="floatingQuantidadeEditP">Quantidade</label>
-        </div
-        ><div class="form-floating">
-        <input type="text" class="form-control" id="floatingPrecoEditP" name="precoCusto" th:field="*{precoCusto}" required>
-        <label for="floatingPrecoEditP">Preco de Custo</label>
-      </div>
-
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto removeProduto">
-      <form id="removeProdutoForm" th:action="@{/produto/deleteProduto}" th:object="${produto}" method="post">
-        <i class="bi bi-trash3 mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Deletar Produto</h1>
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdDeleteP" name="id" th:field="*{id}" required>
-          <label for="floatingIdDeleteP">Id</label>
-        </div>
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto listProduto">
-      <i class="bi bi-search mb-4 icons"></i>
-      <h1 class="h3 mb-3 fw-normal">Produtos Cadastrados</h1>
-      <table id="dadosProduto">
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      <p id="mensagemSemDadosP" style="display: none;">Sem dados para exibir.</p>
-      <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/produto/getAllProdutos','dadosProduto')">Buscar</button>
-    </main>
-
-    
-    <main class="form-signin w-100 m-auto addFuncionario" >
-      <form id="addFuncionarioForm" th:action="@{/funcionario/addFuncionario}" th:object="${funcionario}" method="post">
-        <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Cadastrar Funcionario</h1>
-
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingNomePostF" name="nome" th:field="*{nome}" required>
-          <label for="floatingNomePostF">Nome</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingCPFPostF" name="cpf" th:field="*{cpf}" required>
-          <label for="floatingCPFPostF">CPF</label>
-        </div>
-        <div class="form-floating">
-          <select type="text" class="form-control" id="floatingFuncaoPostF" name="funcao" th:field="*{funcao}" required>
-            <option value=1>GERENTE DE DEPOSITO</option>
-            <option value=2>ASSOCIADO DE DEPOSITO</option>
-            <option value=3>SUPERVISOR DE DEPOSITO</option>
-            <option value=4>OPERARIO DE DEPOSITO</option>
-          </select>
-          <label for="floatingFuncaoPostF">Função</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingEmailPostF" name="email" th:field="*{email}" required>
-          <label for="floatingEmailPostF">Email</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingTelefonePostF" name="telefone" th:field="*{telefone}" required>
-          <label for="floatingTelefonePostF">Telefone</label>
-        </div>
-
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto editFuncionario">
-      <form id="editFuncionarioForm" th:action="@{/funcionario/updateFuncionario}" th:object="${funcionario}" method="post">
-        <i class="bi bi-pencil mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Editar Funcionario</h1>
-
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdEditF" name="id" th:field="*{id}" required>
-          <label for="floatingIdEditF">Id</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingNomeEditF" name="nome" th:field="*{nome}" required>
-          <label for="floatingNomeEditF">Nome</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingCPFEditF" name="cpf" th:field="*{cpf}" required>
-          <label for="floatingCPFEditF">CPF</label>
-        </div>
-        <div class="form-floating">
-          <select type="text" class="form-control" id="floatingFuncaoEditF" name="funcao" th:field="*{funcao}" required>
-            <option value=1>GERENTE DE DEPOSITO</option>
-            <option value=2>ASSOCIADO DE DEPOSITO</option>
-            <option value=3>SUPERVISOR DE DEPOSITO</option>
-            <option value=4>OPERARIO DE DEPOSITO</option>
-          </select>
-          <label for="floatingFuncaoEditF">Função</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingEmailEditF" name="email" th:field="*{email}" required>
-          <label for="floatingEmailEditF">Email</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingTelefoneEditF" name="telefone" th:field="*{telefone}" required>
-          <label for="floatingTelefoneEditF">Telefone</label>
-        </div>
-
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto removeFuncionario">
-      <form id="removeFuncionarioForm" th:action="@{/funcionario/deleteFuncionario}" th:object="${funcionario}" method="post">
-        <i class="bi bi-trash3 mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Deletar Funcionario</h1>
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdDeleteF" name="id" th:field="*{id}" required>
-          <label for="floatingIdDeleteF">Id:</label>
-        </div>
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto listFuncionario">
-      <i class="bi bi-search mb-4 icons"></i>
-      <h1 class="h3 mb-3 fw-normal">Funcionarios Cadastrados</h1>
-      <table id="dadosFuncionario">
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      <p id="mensagemSemDadosF" style="display: none;">Sem dados para exibir.</p>
-      <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/funcionario/getAllFuncionarios','dadosFuncionario')">Buscar</button>
-    </main>
-
-    
-    <main class="form-signin w-100 m-auto addDeposito" >
-      <form id="addDepositoForm" th:action="@{/deposito/addDeposito}" th:object="${deposito}" method="post">
-        <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Cadastrar Deposito</h1>
-
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingDescricaoPostD" name="descricao" th:field="*{descricao}" required>
-          <label for="floatingDescricaoPostD">Descrição</label>
-        </div>
-
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto editDeposito">
-      <form id="editDepositoForm" th:action="@{/deposito/updateDeposito}" th:object="${deposito}" method="post">
-        <i class="bi bi-pencil mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Editar Deposito</h1>
-
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdEditD" name="id" th:field="*{id}" required>
-          <label for="floatingIdEditD">Id:</label>
-        </div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingDescricaoEditD" name="descricao" th:field="*{descricao}" required>
-          <label for="floatingDescricaoEditD">Descrição</label>
-        </div>
-
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto removeDeposito">
-      <form id="removeDepositoForm" th:action="@{/deposito/deleteDeposito}" th:object="${deposito}" method="post">
-        <i class="bi bi-trash3 mb-4 icons"></i>
-        <h1 class="h3 mb-3 fw-normal">Deletar Deposito</h1>
-        <div class="form-floating">
-          <input type="number" class="form-control" id="floatingIdDeleteD" name="id" th:field="*{id}" required>
-          <label for="floatingIdDeleteD">Id</label>
-        </div>
-        <button class="btn btn-primary btn-post w-100 py-2" type="submit">Deletar</button>
-      </form>
-    </main>
-
-    <main class="form-signin w-100 m-auto listDeposito">
-      <i class="bi bi-search mb-4 icons"></i>
-      <h1 class="h3 mb-3 fw-normal">Depositos Cadastrados</h1>
-      <table id="dadosDeposito">
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      <p id="mensagemSemDadosD" style="display: none;">Sem dados para exibir.</p>
-      <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/deposito/getAllDepositos','dadosDeposito')">Buscar</button>
-    </main>
-  </div>
-</main>
-<script th:src="@{js/bootstrap.bundle.js}"></script>
-<script th:src="@{js/script.js}"></script>
-
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdSetorRemoveD" name="idSetor">
+            <label for="floatingIdSetorRemoveD">Id Setor:</label>
+          </div>
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>
+        </form>
+      </main>
+    </div>
+  </main>
+  <script th:src="@{js/bootstrap.bundle.js}"></script>
+  <script th:src="@{js/script.js}"></script>
 </body>
 </html>

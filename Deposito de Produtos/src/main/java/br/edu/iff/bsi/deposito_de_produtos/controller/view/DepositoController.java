@@ -2,6 +2,7 @@ package br.edu.iff.bsi.deposito_de_produtos.controller.view;
 
 import br.edu.iff.bsi.deposito_de_produtos.model.Deposito;
 import br.edu.iff.bsi.deposito_de_produtos.service.DepositoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,7 +20,7 @@ public class DepositoController {
 
     @PostMapping("/addDeposito")
     @ResponseBody
-    public Map<String, String> addDeposito(@ModelAttribute Deposito deposito, BindingResult result){
+    public Map<String, String> addDeposito(@Valid @ModelAttribute Deposito deposito, BindingResult result){
         Map<String, String> response = new HashMap<>();
         if (result.hasErrors()) {
             response.put("error", "Descrição Obrigatória");
@@ -32,14 +33,35 @@ public class DepositoController {
     }
     @PostMapping("/updateDeposito")
     @ResponseBody
-    public Map<String, String> updateDeposito(Long id, @ModelAttribute Deposito deposito){
+    public Map<String, String> updateDeposito(Long id, @Valid @ModelAttribute Deposito deposito, BindingResult result){
         Map<String, String> response = new HashMap<>();
-        try{
-            Deposito s = service.updateDeposito(id, deposito.getDescricao());
-            response.put("message", (s.getDescricao() == deposito.getDescricao()) ? "O depósito foi atualizado com sucesso!" : "O depósito não foi atualizado com sucesso!");
-        } catch(Exception e){
-            response.put("error", "Não existe depósito com a descricao atual!");
+        if (result.hasErrors()) {
+            response.put("error", "Descrição e Id Obrigatórios");
+        } else {
+            try {
+                Deposito s = service.updateDeposito(id, deposito.getDescricao());
+                response.put("message", (s.getDescricao() == deposito.getDescricao()) ? "O depósito foi atualizado com sucesso!" : "O depósito não foi atualizado com sucesso!");
+            } catch (Exception e) {
+                response.put("error", "Não existe depósito com a descricao atual!");
+            }
         }
+        return response;
+    }
+    @PostMapping(path = "/addSetor")
+    @ResponseBody
+    public Map<String, String> addSetor(@RequestParam("idDeposito") Long depositoId, @RequestParam("idSetor") Long setorId){
+        Map<String, String> response = new HashMap<>();
+        String s = service.addSetores(depositoId, setorId);
+        response.put("message", (s != null) ? s : "Setor do id " + setorId + " já existe no Deposito");
+        return response;
+    }
+
+    @PostMapping(path = "/deleteSetor")
+    @ResponseBody
+    public Map<String, String> deletarSetor(@RequestParam("idDeposito") Long depositoId, @RequestParam("idSetor") Long setorId){
+        Map<String, String> response = new HashMap<>();
+        String s = service.removerSetor(depositoId, setorId);
+        response.put("message", (s != null) ? s : "Setor do id " + setorId + " já existe no Deposito");
         return response;
     }
     @GetMapping("/getAllDepositos")

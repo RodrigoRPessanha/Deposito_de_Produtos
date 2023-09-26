@@ -1,6 +1,5 @@
 package br.edu.iff.bsi.deposito_de_produtos.controller.view;
 
-import br.edu.iff.bsi.deposito_de_produtos.model.Produto;
 import br.edu.iff.bsi.deposito_de_produtos.model.SetorDeposito;
 import br.edu.iff.bsi.deposito_de_produtos.service.SetorService;
 import jakarta.validation.Valid;
@@ -36,13 +35,17 @@ public class SetorController {
 
     @PostMapping("/updateSetor")
     @ResponseBody
-    public Map<String, String> updateSetor(Long id, @Valid @ModelAttribute SetorDeposito setor){
+    public Map<String, String> updateSetor(@Valid @ModelAttribute SetorDeposito setor, Long id, BindingResult result){
         Map<String, String> response = new HashMap<>();
-        try{
-            SetorDeposito s = service.updateSetor(id, setor.getDescricao());
-            response.put("message", (s.getDescricao() == setor.getDescricao()) ? "O setor foi atualizado com sucesso!" : "O setor não foi atualizado com sucesso!");
-        } catch(Exception e){
-            response.put("error", "Descrição Obrigatória");
+        if (result.hasErrors()) {
+            response.put("error", "Descrição e Id Obrigatórios");
+        } else {
+            try{
+                SetorDeposito s = service.updateSetor(id, setor.getDescricao());
+                response.put("message", (s.getDescricao() == setor.getDescricao()) ? "O setor foi atualizado com sucesso!" : "O setor não foi atualizado com sucesso!");
+            } catch(Exception e){
+                response.put("error", "Descrição e Id Obrigatórios");
+            }
         }
         return response;
     }
@@ -63,22 +66,21 @@ public class SetorController {
         response.put("message", mensagem);
         return response;
     }
-
     @PostMapping(path = "/addProduto")
     @ResponseBody
-    public  Map<String, String> addProduto(@ModelAttribute SetorDeposito setor, @ModelAttribute Produto produto){
+    public  Map<String, String> addProduto(@RequestParam("idSetor") Long setorId, @RequestParam("idProduto") Long produtoId){
         Map<String, String> response = new HashMap<>();
-        String s = service.addProdutos(setor.getId(), produto.getId());
-        response.put("message", (s != null) ? s : "Produto do id " + produto.getId() + " já existe no setor do id " + setor.getId() + " ou em outros setores");
+        String s = service.addProdutos(setorId, produtoId);
+        response.put("message", (s != null) ? s : "Produto do id " + produtoId + " já existe no setor do id " + setorId + " ou em outros setores");
+        return response;
+    }
+    @PostMapping(path = "/deleteProduto")
+    @ResponseBody
+    public Map<String, String> deletarProduto(@RequestParam("idSetorR") Long setorId, @RequestParam("idProdutoR") Long produtoId){
+        Map<String, String> response = new HashMap<>();
+        String s = service.removerProdutos(setorId, produtoId);
+        response.put("message", (s != null) ? s : "Produto do id " + produtoId + " não existe no setor do id " + setorId);
         return response;
     }
 
-    @PostMapping(path = "/deleteProduto")
-    @ResponseBody
-    public Map<String, String> deletarProduto(@ModelAttribute SetorDeposito setor, @ModelAttribute Produto produto){
-        Map<String, String> response = new HashMap<>();
-        String s = service.removerProdutos(setor.getId(), produto.getId());
-        response.put("message", (s != null) ? s : "Produto do id " + setor.getId() + " não existe no setor");
-        return response;
-    }
 }

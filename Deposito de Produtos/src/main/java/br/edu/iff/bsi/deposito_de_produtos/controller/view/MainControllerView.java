@@ -36,6 +36,7 @@ public class MainControllerView {
         Deposito d = new Deposito();
         Funcionario f = new Funcionario();
         Produto p = new Produto();
+
         model.addAttribute("setor", s);
         model.addAttribute("deposito", d);
         model.addAttribute("produto", p);

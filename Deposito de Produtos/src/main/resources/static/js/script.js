@@ -65,7 +65,10 @@ function displayForms(item, form){
         hideAllForms();
     }
     if (element.style.display === 'none' || element.style.display === '') {
-        element.style.display = 'block';
+        element.style.display = 'flex';
+        element.style.flexDirection = 'column';
+        element.style.alignItems = 'center';
+        element.style.flexBasis = 'content'
         element2.style.backgroundColor = 'rgba(111, 66, 193, 0.5)'
     } else {
         element.style.display = 'none';
@@ -99,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 })
                 .catch(function (error) {
-                    alert('Ocorreu um erro na requisição fetch.');
+                    alert('Ocorreu um erro na requisição.');
                 });
         });
     }
@@ -123,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
     handleFormSubmit('addDepositoForm', '/deposito/addDeposito');
     handleFormSubmit('editDepositoForm', '/deposito/updateDeposito');
     handleFormSubmit('removeDepositoForm', '/deposito/deleteDeposito');
+    handleFormSubmit('addSetorDepositoForm', '/deposito/addSetor');
+    handleFormSubmit('removeSetorDepositoForm', '/deposito/deleteSetor');
 
 });
 
@@ -158,16 +163,33 @@ function listItens(endpoint, tabelaId){
             // Iterar pelos dados e criar linhas da tabela
             data.forEach(item => {
                 const row = document.createElement("tr");
+
                 for (const key in item) {
-                    const cell = document.createElement("td");
-                    cell.textContent = item[key];
-                    row.appendChild(cell);
+                    if (item.hasOwnProperty(key)) {
+                        const cell = document.createElement("td");
+                        const value = item[key];
+
+                        if (typeof value === 'object') {
+                            // Se for um objeto, exibir como uma string JSON
+                            const jsonArray = JSON.parse(JSON.stringify(value));
+                            cell.textContent = jsonArray.map(obj => ' ' + obj.id);
+                        } else {
+                            // Se for um valor simples, definir o valor na célula
+                            cell.textContent = value;
+                        }
+
+                        row.appendChild(cell);
+                    }
                 }
+
                 tbody.appendChild(row);
             });
             const urlSplitted = url.split("/");
             const element = '.list' + urlSplitted[3].charAt(0).toUpperCase() + urlSplitted[3].slice(1);
-            document.querySelector(element).style.maxWidth = tabela.clientWidth + 35 + 'px';
+            document.querySelector(element).style.maxWidth = tabela.clientWidth + 70 + 'px';
+            document.querySelector(element).style.maxHeight = '550px';
+            document.querySelector(element).style.overflow = 'scroll';
+
         })
         .catch(error => {
             console.error("Erro ao carregar os dados:", error);

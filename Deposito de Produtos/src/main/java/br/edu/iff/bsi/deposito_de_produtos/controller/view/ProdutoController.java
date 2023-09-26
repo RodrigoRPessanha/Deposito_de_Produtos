@@ -2,6 +2,7 @@ package br.edu.iff.bsi.deposito_de_produtos.controller.view;
 
 import br.edu.iff.bsi.deposito_de_produtos.model.Produto;
 import br.edu.iff.bsi.deposito_de_produtos.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,7 +19,7 @@ public class ProdutoController {
     private ProdutoService service;
     @PostMapping("/addProduto")
     @ResponseBody
-    public Map<String, String> addProduto(@ModelAttribute Produto produto, BindingResult result) {
+    public Map<String, String> addProduto(@Valid @ModelAttribute Produto produto, BindingResult result) {
         Map<String, String> response = new HashMap<>();
         if (result.hasErrors()) {
             response.put("error", "Algum dos campos obrigatórios está vazio");
@@ -30,13 +31,17 @@ public class ProdutoController {
     }
     @PostMapping("/updateProduto")
     @ResponseBody
-    public Map<String, String> updateProduto(Long id, @ModelAttribute Produto produto){
+    public Map<String, String> updateProduto(Long id, @Valid @ModelAttribute Produto produto, BindingResult result){
         Map<String, String> response = new HashMap<>();
-        try{
-            Produto p = service.updateProduto(id, produto);
-            response.put("message", (p.getDescricao().equals(produto.getDescricao().trim())) ? "O produto foi atualizado com sucesso!" : "O produto não foi atualizado com sucesso!");
-        } catch(Exception e){
-            response.put("error", "Não existe produto com a descricao ou codigo de barras atual!");
+        if (result.hasErrors()) {
+            response.put("error", "Algum dos campos obrigatórios está vazio");
+        } else {
+            try {
+                Produto p = service.updateProduto(id, produto);
+                response.put("message", (p.getDescricao().equals(produto.getDescricao().trim())) ? "O produto foi atualizado com sucesso!" : "O produto não foi atualizado com sucesso!");
+            } catch (Exception e) {
+                response.put("error", "Algum dos campos obrigatórios está vazio");
+            }
         }
         return response;
     }

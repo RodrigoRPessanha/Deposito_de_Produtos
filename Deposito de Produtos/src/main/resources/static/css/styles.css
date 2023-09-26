@@ -1,6 +1,10 @@
 .form-signin{
     border: 3px solid var(--bs-purple);
     border-radius: 13px;
+    min-width: 355px;
+}
+.form-signin form{
+    width: 100%;
 }
 .btn{
     margin-top: 5px;

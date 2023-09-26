@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Error Page</title>
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <!-- Adicione qualquer outro estilo personalizado aqui -->
+  <style>
+      body {
+          background-color: #2b3035;
+      }
+      .error-container {
+          text-align: center;
+          margin-top: 100px;
+      }
+      .error-title {
+          font-size: 6rem;
+          font-weight: bold;
+          color: #6f42c1;
+      }
+      .error-message, .lead {
+          font-size: 1.5rem;
+          color: #6f42c1;
+      }
+      .btn-go-home {
+          background-color: #6f42c1;
+          border-radius: 15px;
+          margin-top: 20px;
+          padding:10px;
+          color:#ffffff;
+          font-size: 20px;
+          cursor: pointer;
+          text-decoration: none;
+      }
+  </style>
+</head>
+<body>
+<div class="container error-container">
+  <h1 class="error-title">404</h1>
+  <p class="error-message"><span class="text-danger">Oops!</span> Página não encontrada</p>
+  <p class="lead">
+    A página que você está procurando não existe.
+  </p>
+  <a href="/" class="btn btn-primary btn-lg btn-block btn-go-home">Ir para a página inicial</a>
+</div>
+<script th:src="@{js/bootstrap.min.js}"></script>
+
+</body>
+</html>

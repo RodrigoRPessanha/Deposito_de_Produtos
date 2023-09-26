@@ -1,6 +1,7 @@
 package br.edu.iff.bsi.deposito_de_produtos.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,16 +14,15 @@ public class Produto implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-//    @NotBlank(message = "Descrição obrigatória.")
+    @NotBlank(message = "Descrição obrigatória.")
     @Column(nullable = false)
     private String descricao;
-//    @NotBlank(message = "Codigo de barras obrigatório.")
+    @NotBlank(message = "Codigo de barras obrigatório.")
     @Column(nullable = false)
     private String codigoDeBarras;
-//    @NotBlank(message = "Quantidade obrigatória.")
     @Column(nullable = false)
     private int quantidade;
-//    @NotBlank(message = "Preco de custo obrigatório.")
+
     @Column(nullable = false)
     private BigDecimal precoCusto;
 

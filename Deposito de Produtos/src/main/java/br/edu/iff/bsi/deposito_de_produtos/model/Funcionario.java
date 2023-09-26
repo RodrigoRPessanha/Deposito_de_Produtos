@@ -19,7 +19,7 @@ public class Funcionario implements Serializable {
     @NotBlank(message = "CPF obrigatório.")
     @Column(nullable = false)
     private String cpf;
-    @NotBlank(message = "Função obrigatória.")
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private FuncaoEnum funcao;
