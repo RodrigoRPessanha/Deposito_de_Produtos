@@ -6,21 +6,28 @@ document.querySelector('.depositoSub').style.display = 'none';
 
 let lista = [
     document.querySelector('#addS'),
+    document.querySelector('#addSP'),
     document.querySelector('#addP'),
     document.querySelector('#addF'),
+    document.querySelector('#addFS'),
     document.querySelector('#addD'),
+    document.querySelector('#addDS'),
     document.querySelector('#editS'),
     document.querySelector('#editP'),
     document.querySelector('#editF'),
     document.querySelector('#editD'),
     document.querySelector('#removeS'),
+    document.querySelector('#removeSP'),
     document.querySelector('#removeP'),
     document.querySelector('#removeF'),
+    document.querySelector('#removeFS'),
     document.querySelector('#removeD'),
+    document.querySelector('#removeDS'),
     document.querySelector('#listS'),
     document.querySelector('#listP'),
     document.querySelector('#listF'),
-    document.querySelector('#listD')
+    document.querySelector('#listD'),
+    document.querySelector('#listE')
 ];
 
 for (const elemento of lista) {
@@ -49,6 +56,7 @@ function toggleMenuAside(subClass) {
     if(sub.style.display === 'none'){
         hideAllAside();
         hideAllForms();
+        quantidade = 0;
     }
     if (sub.style.display === 'none' || sub.style.display === '') {
         sub.style.display = 'block';

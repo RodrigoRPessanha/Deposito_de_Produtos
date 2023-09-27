@@ -2,6 +2,7 @@ package br.edu.iff.bsi.deposito_de_produtos.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,9 +21,10 @@ public class Produto implements Serializable {
     @NotBlank(message = "Codigo de barras obrigatório.")
     @Column(nullable = false)
     private String codigoDeBarras;
+    @Positive
     @Column(nullable = false)
     private int quantidade;
-
+    @Positive
     @Column(nullable = false)
     private BigDecimal precoCusto;
 
