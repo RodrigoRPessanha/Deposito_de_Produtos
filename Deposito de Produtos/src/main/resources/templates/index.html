@@ -76,10 +76,10 @@
           </tbody>
         </table>
         <p id="mensagemSemDadosS" style="display: none;">Sem dados para exibir.</p>
-        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/setor/getAllSetores','dadosSetor')">Buscar</button>
+        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/setor/getAllSetores','dadosSetor', 'mensagemSemDadosS')">Buscar</button>
       </main>
       <main class="form-signin w-100 m-auto addProdutoS">
-        <form id="addProdutoSetorForm" th:action="@{/setor/addProduto}" method="post">
+        <form id="addProdutoSetorForm" action="/setor/addProduto" method="post">
           <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
           <h1 class="h3 mb-3 fw-normal">Adicionar Produto ao Setor</h1>
 
@@ -96,7 +96,7 @@
         </form>
       </main>
       <main class="form-signin w-100 m-auto removeProdutoS">
-        <form id="removeProdutoSetorForm" th:action="@{/setor/deleteroduto}" method="post">
+        <form id="removeProdutoSetorForm" action="/setor/deleteProduto" method="post">
           <i class="bi bi-trash3 mb-4 icons"></i>
           <h1 class="h3 mb-3 fw-normal">Remover Produto do Setor</h1>
 
@@ -156,11 +156,11 @@
             <label for="floatingCodigoBarrasEditP">Codigo De Barras</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingQuantidadeEditP" name="quantidade" th:field="*{quantidade}" required>
+            <input type="number" class="form-control" id="floatingQuantidadeEditP" name="quantidade" th:field="*{quantidade}" required>
             <label for="floatingQuantidadeEditP">Quantidade</label>
           </div
           ><div class="form-floating">
-          <input type="text" class="form-control" id="floatingPrecoEditP" name="precoCusto" th:field="*{precoCusto}" required>
+          <input type="number" step="0.01" class="form-control" id="floatingPrecoEditP" name="precoCusto" th:field="*{precoCusto}" required>
           <label for="floatingPrecoEditP">Preco de Custo</label>
         </div>
 
@@ -188,24 +188,24 @@
           </tbody>
         </table>
         <p id="mensagemSemDadosP" style="display: none;">Sem dados para exibir.</p>
-        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/produto/getAllProdutos','dadosProduto')">Buscar</button>
+        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/produto/getAllProdutos','dadosProduto', 'mensagemSemDadosP')">Buscar</button>
       </main>
 
       <main class="form-signin w-100 m-auto addFuncionario" >
-        <form id="addFuncionarioForm" th:action="@{/funcionario/addFuncionario}" th:object="${funcionario}" method="post">
+        <form id="addFuncionarioForm" th:action="@{/funcionario/addFuncionario}" th:with="endereco=${endereco}, funcionario=${funcionario}" method="post">
           <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
           <h1 class="h3 mb-3 fw-normal">Cadastrar Funcionario</h1>
 
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingNomePostF" name="nome" th:field="*{nome}" required>
+            <input type="text" class="form-control" id="floatingNomePostF" name="nome" th:field="*{funcionario.nome}" required>
             <label for="floatingNomePostF">Nome</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingCPFPostF" name="cpf" th:field="*{cpf}" required>
+            <input type="text" class="form-control" id="floatingCPFPostF" name="cpf" th:field="*{funcionario.cpf}" required>
             <label for="floatingCPFPostF">CPF</label>
           </div>
           <div class="form-floating">
-            <select type="text" class="form-control" id="floatingFuncaoPostF" name="funcao" th:field="*{funcao}" required>
+            <select type="text" class="form-control" id="floatingFuncaoPostF" name="funcao" th:field="*{funcionario.funcao}" required>
               <option value=1>GERENTE DE DEPOSITO</option>
               <option value=2>ASSOCIADO DE DEPOSITO</option>
               <option value=3>SUPERVISOR DE DEPOSITO</option>
@@ -214,36 +214,59 @@
             <label for="floatingFuncaoPostF">Função</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingEmailPostF" name="email" th:field="*{email}" required>
+            <input type="text" class="form-control" id="floatingEmailPostF" name="email" th:field="*{funcionario.email}" required>
             <label for="floatingEmailPostF">Email</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingTelefonePostF" name="telefone" th:field="*{telefone}" required>
+            <input type="text" class="form-control" id="floatingTelefonePostF" name="telefone" th:field="*{funcionario.telefone}" required>
             <label for="floatingTelefonePostF">Telefone</label>
           </div>
-
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingRuaPost" name="rua" th:field="*{endereco.rua}" required>
+            <label for="floatingRuaPost">Rua</label>
+          </div>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingNumeroPost" name="numero" th:field="*{endereco.numero}" required>
+            <label for="floatingNumeroPost">Numero</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingBairroPost" name="bairro" th:field="*{endereco.bairro}" required>
+            <label for="floatingBairroPost">Bairro</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingCidadePost" name="cidade" th:field="*{endereco.cidade}" required>
+            <label for="floatingCidadePost">Cidade</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingEstadoPost" name="estado" th:field="*{endereco.estado}" required>
+            <label for="floatingEstadoPost">Estado</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingCEPPost" name="cep" th:field="*{endereco.cep}" required>
+            <label for="floatingCEPPost">CEP</label>
+          </div>
           <button class="btn btn-primary btn-post w-100 py-2" type="submit">Cadastrar</button>
         </form>
       </main>
       <main class="form-signin w-100 m-auto editFuncionario">
-        <form id="editFuncionarioForm" th:action="@{/funcionario/updateFuncionario}" th:object="${funcionario}" method="post">
+        <form id="editFuncionarioForm" th:action="@{/funcionario/updateFuncionario}" th:with="endereco=${endereco}, funcionario=${funcionario}" method="post">
           <i class="bi bi-pencil mb-4 icons"></i>
           <h1 class="h3 mb-3 fw-normal">Editar Funcionario</h1>
 
           <div class="form-floating">
-            <input type="number" class="form-control" id="floatingIdEditF" name="id" th:field="*{id}" required>
+            <input type="number" class="form-control" id="floatingIdEditF" name="id" th:field="*{funcionario.id}" required>
             <label for="floatingIdEditF">Id</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingNomeEditF" name="nome" th:field="*{nome}" required>
+            <input type="text" class="form-control" id="floatingNomeEditF" name="nome" th:field="*{funcionario.nome}" required>
             <label for="floatingNomeEditF">Nome</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingCPFEditF" name="cpf" th:field="*{cpf}" required>
+            <input type="text" class="form-control" id="floatingCPFEditF" name="cpf" th:field="*{funcionario.cpf}" required>
             <label for="floatingCPFEditF">CPF</label>
           </div>
           <div class="form-floating">
-            <select type="text" class="form-control" id="floatingFuncaoEditF" name="funcao" th:field="*{funcao}" required>
+            <select type="text" class="form-control" id="floatingFuncaoEditF" name="funcao" th:field="*{funcionario.funcao}" required>
               <option value=1>GERENTE DE DEPOSITO</option>
               <option value=2>ASSOCIADO DE DEPOSITO</option>
               <option value=3>SUPERVISOR DE DEPOSITO</option>
@@ -252,12 +275,36 @@
             <label for="floatingFuncaoEditF">Função</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingEmailEditF" name="email" th:field="*{email}" required>
+            <input type="text" class="form-control" id="floatingEmailEditF" name="email" th:field="*{funcionario.email}" required>
             <label for="floatingEmailEditF">Email</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="floatingTelefoneEditF" name="telefone" th:field="*{telefone}" required>
+            <input type="text" class="form-control" id="floatingTelefoneEditF" name="telefone" th:field="*{funcionario.telefone}" required>
             <label for="floatingTelefoneEditF">Telefone</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingRuaEdit" name="rua" th:field="*{endereco.rua}" required>
+            <label for="floatingRuaEdit">Rua</label>
+          </div>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingNumeroEdit" name="numero" th:field="*{endereco.numero}" required>
+            <label for="floatingNumeroEdit">Numero</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingBairroEdit" name="bairro" th:field="*{endereco.bairro}" required>
+            <label for="floatingBairroEdit">Bairro</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingCidadeEdit" name="cidade" th:field="*{endereco.cidade}" required>
+            <label for="floatingCidadeEdit">Cidade</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingEstadoEdit" name="estado" th:field="*{endereco.estado}" required>
+            <label for="floatingEstadoEdit">Estado</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingCEPEdit" name="cep" th:field="*{endereco.cep}" required>
+            <label for="floatingCEPEdit">CEP</label>
           </div>
 
           <button class="btn btn-primary btn-post w-100 py-2" type="submit">Editar</button>
@@ -284,7 +331,49 @@
           </tbody>
         </table>
         <p id="mensagemSemDadosF" style="display: none;">Sem dados para exibir.</p>
-        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/funcionario/getAllFuncionarios','dadosFuncionario')">Buscar</button>
+        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/funcionario/getAllFuncionarios','dadosFuncionario', 'mensagemSemDadosF')">Buscar</button>
+      </main>
+      <main class="form-signin w-100 m-auto listEnderecos">
+        <i class="bi bi-search mb-4 icons"></i>
+        <h1 class="h3 mb-3 fw-normal">Endereços Cadastrados</h1>
+        <table id="enderecosFuncionario">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        <p id="mensagemSemDadosE" style="display: none;">Sem dados para exibir.</p>
+        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/funcionario/getEnderecos','enderecosFuncionario', 'mensagemSemDadosE')">Buscar</button>
+      </main>
+      <main class="form-signin w-100 m-auto addSetorF">
+        <form id="addSetorFuncionarioForm" th:action="@{/funcionario/addSetor}" method="post">
+          <i class="bi bi-box-arrow-in-down mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Adicionar Setor ao Funcionário</h1>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdFuncionarioAdd" name="funcionarioId">
+            <label for="floatingIdFuncionarioAdd">Id Funcionario:</label>
+          </div>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdSetorAddF" name="setorId">
+            <label for="floatingIdSetorAddF">Id Setor:</label>
+          </div>
+
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Adicionar</button>
+        </form>
+      </main>
+      <main class="form-signin w-100 m-auto removeSetorF">
+        <form id="removeSetorFuncioanarioForm" th:action="@{/funcionario/deleteSetor}" method="post">
+          <i class="bi bi-trash3 mb-4 icons"></i>
+          <h1 class="h3 mb-3 fw-normal">Remover Setor do Funcionário</h1>
+
+          <div class="form-floating">
+            <input type="number" class="form-control" id="floatingIdFuncionarioRemove" name="id">
+            <label for="floatingIdFuncionarioRemove">Id Funcionário:</label>
+          </div>
+
+          <button class="btn btn-primary btn-post w-100 py-2" type="submit">Remover</button>
+        </form>
       </main>
 
       <main class="form-signin w-100 m-auto addDeposito" >
@@ -338,7 +427,7 @@
           </tbody>
         </table>
         <p id="mensagemSemDadosD" style="display: none;">Sem dados para exibir.</p>
-        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/deposito/getAllDepositos','dadosDeposito')">Buscar</button>
+        <button class="btn btn-primary btn-post w-100 py-2" onclick="listItens('/deposito/getAllDepositos','dadosDeposito', 'mensagemSemDadosD')">Buscar</button>
       </main>
       <main class="form-signin w-100 m-auto addSetorD">
         <form id="addSetorDepositoForm" th:action="@{/deposito/addSetor}" method="post">

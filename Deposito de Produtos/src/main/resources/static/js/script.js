@@ -1,4 +1,4 @@
-
+let quantidade = 0;
 document.querySelector('.setorSub').style.display = 'none';
 document.querySelector('.produtoSub').style.display = 'none';
 document.querySelector('.funcionarioSub').style.display = 'none';
@@ -54,6 +54,7 @@ function toggleMenuAside(subClass) {
         sub.style.display = 'block';
     } else {
         sub.style.display = 'none';
+
     }
 }
 
@@ -61,8 +62,9 @@ function toggleMenuAside(subClass) {
 function displayForms(item, form){
     const element = document.querySelector(form);
     const element2 = document.querySelector(item);
-    if(element.style.display === 'none'){
+    if(element.style.display === 'none' && quantidade >= 2){
         hideAllForms();
+        quantidade = 0;
     }
     if (element.style.display === 'none' || element.style.display === '') {
         element.style.display = 'flex';
@@ -70,9 +72,11 @@ function displayForms(item, form){
         element.style.alignItems = 'center';
         element.style.flexBasis = 'content'
         element2.style.backgroundColor = 'rgba(111, 66, 193, 0.5)'
+        quantidade++;
     } else {
         element.style.display = 'none';
         element2.style.backgroundColor = 'transparent'
+        quantidade--;
     }
 }
 
@@ -95,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(function (data) {
                     if (data.error) {
                         // Exibe um alerta de erro
+                        console.log(data.error)
                         alert(data.error);
                     } else {
                         // Exibe a mensagem na página
@@ -103,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(function (error) {
                     alert('Ocorreu um erro na requisição.');
+                    console.log(error.message)
                 });
         });
     }
@@ -122,6 +128,8 @@ document.addEventListener('DOMContentLoaded', function () {
     handleFormSubmit('addFuncionarioForm', '/funcionario/addFuncionario');
     handleFormSubmit('editFuncionarioForm', '/funcionario/updateFuncionario');
     handleFormSubmit('removeFuncionarioForm', '/funcionario/deleteFuncionario');
+    handleFormSubmit('addSetorFuncionarioForm', '/funcionario/addSetor');
+    handleFormSubmit('removeSetorFuncioanarioForm', '/funcionario/deleteSetor');
     // Deposito
     handleFormSubmit('addDepositoForm', '/deposito/addDeposito');
     handleFormSubmit('editDepositoForm', '/deposito/updateDeposito');
@@ -132,11 +140,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // document.querySelector(".reloadButton").addEventListener("click", function() {
-function listItens(endpoint, tabelaId){
+function listItens(endpoint, tabelaId, mensagem){
     const url = `http://localhost:8080${endpoint}`;
     const tabela = document.getElementById(tabelaId);
     const thead = tabela.querySelector("thead");
     const tbody = tabela.querySelector("tbody");
+    const msg = document.querySelector(`#${mensagem}`);
 
     // Limpar a tabela existente
     thead.innerHTML = "";
@@ -147,7 +156,8 @@ function listItens(endpoint, tabelaId){
         .then(data => {
             // Verificar se há dados para exibir
             if (data.length === 0) {
-                alert("Sem dados para exibir.")
+                msg.style.display = 'block';
+                // alert("Sem dados para exibir.")
                 return;
             }
 
@@ -169,13 +179,13 @@ function listItens(endpoint, tabelaId){
                         const cell = document.createElement("td");
                         const value = item[key];
 
-                        if (typeof value === 'object') {
-                            // Se for um objeto, exibir como uma string JSON
-                            const jsonArray = JSON.parse(JSON.stringify(value));
+                        if (typeof value === 'object' && value !== null) {
+                            // Se for um objeto não nulo, exibir como uma string JSON
+                            const jsonArray = Array.isArray(value) ? value : [value]; // Verifique se é um array ou objeto único
                             cell.textContent = jsonArray.map(obj => ' ' + obj.id);
                         } else {
-                            // Se for um valor simples, definir o valor na célula
-                            cell.textContent = value;
+                            // Se for null ou outro tipo, definir 'null' na célula
+                            cell.textContent = value === null ? 'null' : value;
                         }
 
                         row.appendChild(cell);
@@ -184,11 +194,17 @@ function listItens(endpoint, tabelaId){
 
                 tbody.appendChild(row);
             });
-            const urlSplitted = url.split("/");
-            const element = '.list' + urlSplitted[3].charAt(0).toUpperCase() + urlSplitted[3].slice(1);
-            document.querySelector(element).style.maxWidth = tabela.clientWidth + 70 + 'px';
-            document.querySelector(element).style.maxHeight = '550px';
-            document.querySelector(element).style.overflow = 'scroll';
+            if(endpoint !== '/funcionario/getEnderecos'){
+                const urlSplitted = url.split("/");
+                const element = '.list' + urlSplitted[3].charAt(0).toUpperCase() + urlSplitted[3].slice(1);
+                document.querySelector(element).style.maxWidth = tabela.clientWidth + 70 + 'px';
+                document.querySelector(element).style.maxHeight = '550px';
+            }else{
+                document.querySelector('.listEnderecos').style.maxWidth = tabela.clientWidth + 70 + 'px';
+                document.querySelector('.listEnderecos').style.maxHeight = '550px';
+                document.querySelector('.listEnderecos').style.overflow = 'scroll';
+            }
+            msg.style.display = 'none';
 
         })
         .catch(error => {
