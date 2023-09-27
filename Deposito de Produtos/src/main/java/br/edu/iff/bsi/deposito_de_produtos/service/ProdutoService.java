@@ -40,8 +40,26 @@ public class ProdutoService {
         }
         return produto;
     }
+    public Produto updateProduto(Long id, Produto produtoNovo){
+        Produto produto;
+        Optional<Produto> p = res.findById(id);
+        if (p.isPresent()){
+            produto = p.get();
+            produto.setDescricao(produtoNovo.getDescricao());
+            produto.setCodigoDeBarras(produtoNovo.getCodigoDeBarras());
+            produto.setQuantidade(produtoNovo.getQuantidade());
+            produto.setPrecoCusto(produtoNovo.getPrecoCusto());
+            produto = res.save(produto);
+        }else{
+            produto = null;
+        }
+        return produto;
+    }
     public void deletarProduto(String descricao, String codigoDeBarras){
         res.deleteById(res.findByDescricao(descricao,codigoDeBarras));
+    }
+    public void deletarProduto(Long id){
+        res.deleteById(id);
     }
     public List<Produto> findAllProdutos(){
         return res.findAll();

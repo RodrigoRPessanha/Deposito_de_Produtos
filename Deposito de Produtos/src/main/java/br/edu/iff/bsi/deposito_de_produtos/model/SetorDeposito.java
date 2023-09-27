@@ -2,11 +2,14 @@ package br.edu.iff.bsi.deposito_de_produtos.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class SetorDeposito {
+public class SetorDeposito implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -41,6 +44,12 @@ public class SetorDeposito {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+    public void addProdutos(Produto produto){
+        this.produtos.add(produto);
+    }
+    public void removerProduto(Produto produto){
+        this.produtos.remove(produto);
     }
 
 }
