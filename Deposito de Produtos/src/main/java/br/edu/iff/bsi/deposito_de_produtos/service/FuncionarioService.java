@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,32 +21,17 @@ public class FuncionarioService {
     private EnderecoRepository resEndereco;
     @Autowired
     private SetorRepository resSetor;
-    public String addFuncionario(@ModelAttribute Funcionario funcionario){
+    public String addFuncionario(@ModelAttribute Funcionario funcionario, Long enderecoId){
         try{
             resFunc.findById(funcionario.getId()).get();
             return null;
         }catch(Exception e){
-            return "Funcionario " + resFunc.save(funcionario).getNome() + " adicionado";
+            Funcionario f = resFunc.save(funcionario);
+            setarEndereco(f.getId(), enderecoId);
+            return "Funcionario " + f.getNome() + " adicionado";
         }
     }
-    public Funcionario updateFuncionario(@ModelAttribute Funcionario funcionario){
-        Funcionario funcionarioNovo;
-        Optional<Funcionario> p = resFunc.findById(funcionario.getId());
-        if (p.isPresent()){
-            funcionarioNovo = p.get();
-            funcionarioNovo.setNome(funcionario.getNome());
-            funcionarioNovo.setCpf(funcionario.getCpf());
-            funcionarioNovo.setEmail(funcionario.getEmail());
-            funcionarioNovo.setEndereco(funcionario.getEndereco());
-            funcionarioNovo.setFuncao(funcionario.getFuncao());
-            funcionarioNovo.setTelefone(funcionario.getTelefone());
-            funcionarioNovo = resFunc.save(funcionarioNovo);
-        }else{
-            funcionarioNovo = null;
-        }
-        return funcionarioNovo;
-    }
-    public Funcionario updateFuncionario(Long id, @ModelAttribute Funcionario funcionario){
+    public Funcionario updateFuncionario(Long id, @ModelAttribute Funcionario funcionario, Long enderecoId){
         Funcionario funcionarioNovo;
         Optional<Funcionario> p = resFunc.findById(id);
         if (p.isPresent()){
@@ -59,48 +43,17 @@ public class FuncionarioService {
             funcionarioNovo.setFuncao(funcionario.getFuncao());
             funcionarioNovo.setTelefone(funcionario.getTelefone());
             funcionarioNovo = resFunc.save(funcionarioNovo);
+            setarEndereco(funcionarioNovo.getId(), enderecoId);
         }else{
             funcionarioNovo = null;
         }
         return funcionarioNovo;
     }
 
-    public void deletarFuncionario(String cpf){
-        resFunc.deleteById(resFunc.findByCPF(cpf));
-    }
     public void deletarFuncionario(Long id){
         resFunc.deleteById(id);
     }
 
-
-    public String addTelefone(Long id, String tel){
-        Funcionario funcionario = resFunc.findById(id).get();
-        Collection<String> funcionarios = funcionario.getTelefone();
-        try{
-            if(funcionarios.contains(tel.trim())){
-                return null;
-            }
-            funcionario.addTelefone(tel.trim());
-            resFunc.flush();
-            return "Telefone adicionado!";
-        }catch (Exception e){
-            return null;
-        }
-    }
-    public String removerTelefone(Long id, String tel){
-        Funcionario funcionario = resFunc.findById(id).get();
-        Collection<String> funcionarios = funcionario.getTelefone();
-        try{
-            if(!funcionarios.contains(tel.trim())){
-                return null;
-            }
-            funcionario.removeTelefone(tel.trim());
-            resFunc.flush();
-            return "Telefone removido!";
-        }catch (Exception e){
-            return null;
-        }
-    }
     public String setarEndereco(Long id, Long enderecoId) {
         Funcionario funcionario = resFunc.findById(id).get();
         Endereco endereco = funcionario.getEndereco();
@@ -145,7 +98,7 @@ public class FuncionarioService {
         try{
             funcionario.setSetor(null);
             resFunc.flush();
-            return "Endereco removido!";
+            return "Setor removido!";
         }catch (Exception e){
             return null;
         }
@@ -161,6 +114,12 @@ public class FuncionarioService {
     public List<Funcionario> findAllFuncionarios(){
         return resFunc.findAll();
     }
+
+    public Funcionario findFuncionarioById(Long id){
+        Optional<Funcionario> f = resFunc.findById(id);
+        return f.orElse(null);
+    }
+
 
     public List<String> findTelFromFunc(Long id){
         return resFunc.findTelFromFunc(id);

@@ -60,18 +60,6 @@ public class DepositoService {
         }
 
     }
-    public Deposito updateDeposito(String descricaoAtual, String descricaoNova){
-        Deposito setor;
-        Optional<Deposito> s = resDeposito.findById(resDeposito.findByDescricao(descricaoAtual));
-        if (s.isPresent()){
-            setor = s.get();
-            setor.setDescricao(descricaoNova);
-            setor = resDeposito.save(setor);
-        }else{
-            setor = null;
-        }
-        return setor;
-    }
     public Deposito updateDeposito(Long id, String descricaoNova){
         Deposito setor;
         Optional<Deposito> s = resDeposito.findById(id);
@@ -84,15 +72,18 @@ public class DepositoService {
         }
         return setor;
     }
-    public void deletarDeposito(String descricao){
-        resDeposito.deleteById(resDeposito.findByDescricao(descricao));
-    }
     public void deletarDeposito(Long id){
         resDeposito.deleteById(id);
     }
     public List<Deposito> findAllDepositos(){
         return resDeposito.findAll();
     }
+
+    public Deposito findDepositoById(Long id){
+        Optional<Deposito> d = resDeposito.findById(id);
+        return d.orElse(null);
+    }
+
     public List<String> findSetorByDepositoId(Long id){
         return resDeposito.findSetorByDepositoId(id);
     }

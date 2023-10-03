@@ -2,6 +2,7 @@ package br.edu.iff.bsi.deposito_de_produtos.controller.view;
 
 import br.edu.iff.bsi.deposito_de_produtos.model.Endereco;
 import br.edu.iff.bsi.deposito_de_produtos.service.EnderecoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +16,13 @@ public class EnderecoController {
     private EnderecoService service;
     @PostMapping("/addEndereco")
     @ResponseBody
-    public String addEndereco(@ModelAttribute Endereco endereco){
+    public String addEndereco(@Valid @ModelAttribute Endereco endereco){
         Endereco e = service.addEndereco(endereco);
         return "Endereço adicionado --> " + e.enderecoFormatado();
     }
     @PostMapping("/updateEndereco")
     @ResponseBody
-    public String updateEndereco(@ModelAttribute Endereco endereco){
+    public String updateEndereco(@Valid @ModelAttribute Endereco endereco){
         try{
             endereco.trim();
             Endereco e = service.updateEndereco(endereco);
@@ -37,7 +38,7 @@ public class EnderecoController {
     }
     @PostMapping("/deleteEndereco")
     @ResponseBody
-    public String deletarEndereco(@ModelAttribute Endereco endereco){
+    public String deletarEndereco(@Valid @ModelAttribute Endereco endereco){
         endereco.trim();
         service.deletarEndereco(endereco);
         return "Endereço " + endereco.enderecoFormatado() + " deletado!";

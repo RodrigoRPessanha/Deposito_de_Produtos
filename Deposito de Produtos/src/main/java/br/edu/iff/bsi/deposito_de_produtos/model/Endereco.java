@@ -1,6 +1,7 @@
 package br.edu.iff.bsi.deposito_de_produtos.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 
@@ -11,18 +12,22 @@ public class Endereco implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    @NotBlank(message = "Rua obrigatória.")
     @Column(nullable = false)
     private String rua;
+    @NotBlank(message = "Numero obrigatório.")
     @Column(nullable = false)
     private String numero;
+    @NotBlank(message = "Bairro obrigatório.")
     @Column(nullable = false)
     private String bairro;
+    @NotBlank(message = "Cidade obrigatória.")
     @Column(nullable = false)
     private String cidade;
+    @NotBlank(message = "Estado obrigatório.")
     @Column(nullable = false)
     private String estado;
-
-
+    @NotBlank(message = "CEP obrigatório.")
     @Column(nullable = false)
     private String cep;
 

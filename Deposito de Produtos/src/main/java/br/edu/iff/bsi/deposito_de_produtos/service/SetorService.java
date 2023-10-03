@@ -28,18 +28,6 @@ public class SetorService {
             return "Setor " + resSetor.save(setor).getDescricao() + " adicionado";
         }
     }
-    public SetorDeposito updateSetor(String descricaoAtual, String descricaoNova){
-        SetorDeposito setor;
-        Optional<SetorDeposito> s = resSetor.findById(resSetor.findByDescricao(descricaoAtual));
-        if (s.isPresent()){
-            setor = s.get();
-            setor.setDescricao(descricaoNova);
-            setor = resSetor.save(setor);
-        }else{
-            setor = null;
-        }
-        return setor;
-    }
     public SetorDeposito updateSetor(Long id, String descricaoNova){
         SetorDeposito setor;
         Optional<SetorDeposito> s = resSetor.findById(id);
@@ -96,5 +84,10 @@ public class SetorService {
 
     public List<String> findProdutoBySetorId(Long idDeposito){
         return resSetor.findProdutoBySetorId(idDeposito);
+    }
+
+    public SetorDeposito findSetorById(Long id){
+        Optional<SetorDeposito> s = resSetor.findById(id);
+        return s.orElse(null);
     }
 }
