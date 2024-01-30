@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainControllerView {
 
-    @GetMapping(path = "/layoutbase")
+    @GetMapping(path = "/home")
     public String page(){
         return "layoutBase";
     }
 
-    @GetMapping(path = "/home")
+    @GetMapping
     public String Setor(Model model){
         SetorDeposito s = new SetorDeposito();
         Deposito d = new Deposito();
